@@ -32,56 +32,28 @@ const Stepper: React.FC = () => {
       case 2:
         return <PackageForm nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} />;
       case 3:
-        return <OrderConfirmation nextStep={nextStep} prevStep={prevStep} orderDetails={formData} />
+        return <OrderConfirmation nextStep={nextStep} prevStep={prevStep} orderDetails={formData} />;
       case 4:
-        return <OrderDetails nextStep={nextStep} prevStep={prevStep} />
+        return <OrderDetails nextStep={nextStep} prevStep={prevStep} />;
       case 5:
         return <Payment nextStep={nextStep} prevStep={prevStep} />;
-      case 4:
+      case 6:
         return <PaymentConfirmation />;
       default:
         return null;
     }
   };
 
+  // Calculate progress
+  const progress = (step - 1) / (steps.length - 1) * 100;
+
   return (
     <div>
-      <Header prevStep={prevStep} />
-      <div className="container mx-auto p-4 flex flex-col items-center space-y-4 md:space-y-6 lg:space-y-8 pt-20">
-
-        {/* Mobile Stepper Navigation: Only shows the current step */}
-        <div className="flex sm:hidden flex-col items-center w-full pt-3">
-          <div className="flex flex-col items-center space-y-1 transition-colors duration-200 text-yellow-500">
-            <span className="text-lg">
-              {React.cloneElement(steps[step - 1].icon, { className: "text-yellow-500 text-2xl" })}
-            </span>
-            <span className="text-xs text-center">{steps[step - 1].label}</span>
-          </div>
-        </div>
-
-        {/* Stepper Grid Navigation for Larger Screens */}
-        <div className="hidden sm:grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-6 w-full mb-4 md:mb-6 lg:mb-8">
-          {steps.map((item, index) => {
-            const isActive = index + 1 === step;
-            const isCompleted = index + 1 < step;
-            return (
-              <div
-                key={index}
-                className={`flex flex-col items-center space-y-1 transition-colors duration-200 ${isCompleted ? "text-yellow-500" : isActive ? "text-yellow-500" : "text-gray-700"
-                  }`} >
-                <span className="text-lg">
-                  {React.cloneElement(item.icon, {
-                    className: `${isActive ? "text-yellow-500" : "text-gray-700"} text-2xl`
-                  })}
-                </span>
-                <span className="text-xs text-center">{item.label}</span>
-              </div>
-            );
-          })}
-        </div>
+      <Header prevStep={prevStep} progress={progress} /> {/* Pass progress to Header */}
+      <div className="container mx-auto p-4 flex flex-col items-center space-y-4 md:space-y-6 lg:space-y-8 ">
 
         {/* Step Content */}
-        <div className="rounded-lg p-4 w-full md:w-3/4 lg:w-2/4 mb-20 md:mb-0">
+        <div className="rounded-lg p-4 w-full h-full md:w-3/4 lg:w-2/4 mb-20 md:mb-0">
           {renderStep()}
         </div>
       </div>

@@ -1,7 +1,9 @@
 // components/forms/OrderConfirmation.tsx
 import React, { useState } from "react";
-import { MdOutlineRequestQuote } from "react-icons/md";
+// import { MdOutlineRequestQuote } from "react-icons/md";
 import FormButton from "../InputComponent/FormButton";
+import Image from "next/image";
+import ProductImage from "../../../public/Assets/bibimbap.png";
 
 interface OrderDetail {
   date: string;
@@ -154,8 +156,14 @@ const OrderConfirmation: React.FC<Props> = ({ nextStep, prevStep, orderDetails }
         {/* Image Column */}
         <div className="md:w-1/2 mb-4 md:mb-0 flex justify-center w-full">
           <div className="w-full h-48 flex items-center justify-center">
-            <div className="w-full h-full bg-gray-300 rounded-full flex items-center justify-center">
-              <MdOutlineRequestQuote className="w-1/2 h-1/2 text-gray-500" />
+            <div className="rounded-full flex items-center justify-center">
+              <Image
+                src={ProductImage}
+                alt="Male Avatar"
+                width={24}
+                height={24}
+                className="rounded-full"
+              />
             </div>
           </div>
         </div>

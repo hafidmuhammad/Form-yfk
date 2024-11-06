@@ -14,7 +14,8 @@ const SelectionButton: React.FC<SelectionButtonProps> = ({
     <button
       onClick={onClick}
       type="button"
-      className="rounded-md border-2 border-gray-300 bg-gray-200 py-3 px-3 text-gray-700 leading-tight transition duration-150 ease-in-out focus:border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 shadow-sm hover:shadow-md flex items-center w-full justify-between"
+      className={`w-full border-2 border-amber-100 bg-white text-[#865F5D] py-3 px-3 leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 hover:bg-amber-100 rounded-xl p-4 flex items-center justify-between`}
+
     >
       <span className="flex-1 text-left">{label}</span>
       <div className="flex items-center ml-2">

@@ -4,7 +4,7 @@ import Stepper from "./Components/Stepper";
 
 export default function Home() {
   return (
-    <div className="flex-col items-center justify-centerbg-gray-100 bg-[#FEFCF4]">
+    <div className="bg-[#FEFCF4]">
       <Stepper />
     </div>
   );

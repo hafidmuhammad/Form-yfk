@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { FaTrash, FaEdit, FaPlus, FaEllipsisV } from "react-icons/fa"; // Importing icons for edit and delete
+import { FaTrash, FaEdit, FaPlus } from "react-icons/fa"; // Importing icons for edit and delete
 import AddAddressForm from "./AddAddressForm";
 import { AiOutlineClose } from "react-icons/ai";
+import { MdDelete, MdEditNote } from "react-icons/md";
 
 interface Address {
   label: string;
@@ -37,7 +38,7 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
   });
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
   const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [menuIndex, setMenuIndex] = useState<number | null>(null);
+  const [selectedAddressIndex, setSelectedAddressIndex] = useState<number | null>(null);
 
   const handleSave = (address: Address) => {
     const formattedAddress = `${address.label}, ${address.province}, ${address.city}, ${address.district}, ${address.village}, ${address.postalCode}`;
@@ -61,17 +62,20 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
     }
   };
 
-  const handleEditAddress = (index: number) => {
+  const handleEditAddress = (index: number, e: React.MouseEvent) => {
+    e.stopPropagation();
     setNewAddress(addresses[index]);
     setEditIndex(index);
     setShowAddForm(true);
-    setMenuIndex(null);
   };
 
-  const handleDeleteAddress = (index: number) => {
+  const handleDeleteAddress = (index: number, e: React.MouseEvent) => {
+    e.stopPropagation();
     const updatedAddresses = addresses.filter((_, i) => i !== index);
     setAddresses(updatedAddresses);
-    setMenuIndex(null);
+    if (selectedAddressIndex === index) {
+      setSelectedAddressIndex(null);
+    }
   };
 
   const resetForm = () => {
@@ -86,12 +90,26 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
     setShowAddForm(false);
   };
 
+  const handleSelectAddress = (index: number) => {
+    setSelectedAddressIndex(index === selectedAddressIndex ? null : index); // Toggle selection
+  };
+
   return (
-    <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center ${!isOpen && "hidden"}`}>
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-3xl w-full overflow-hidden">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end sm:items-center justify-center pb-4 sm:pb-0">
+      <div
+        className="bg-[#F8EFE0] p-6 pb-8 rounded-lg shadow-lg max-w-md w-full h-[85vh]
+              sm:h-[90vh] md:max-h-[75vh] overflow-hidden flex flex-col"
+      >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-semibold">Masukkan Alamat</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+          {/* This part will be hidden when showAddForm is true */}
+          {!showAddForm && (
+            <div className="m-2">
+              <div className="font-bold text-[#865F5D] text-2xl">Pilih alamat Pengiriman</div>
+              <span className="font-normal text-xs text-[#865F5D]">Pilih Satu Untuk Pengiriman</span>
+            </div>
+          )}
+          {/* Close button to close the modal */}
+          <button onClick={() => { setShowAddForm(false); onClose(); }} className="text-gray-500 hover:text-gray-700">
             <AiOutlineClose className="text-base" />
           </button>
         </div>
@@ -106,48 +124,43 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
           />
         ) : (
           <>
-            <div className="max-h-60 overflow-y-auto mb-4">
+            {/* Scrollable address list with overflow */}
+            <div className="max-h-[50vh] sm:max-h-60 overflow-y-auto mb-4">
               {addresses.map((address, index) => (
-                <div key={index} className="mb-2 flex justify-between items-center">
+                <div key={index}
+                  className={`flex justify-between mx-1 border-1 border-amber-100 text-[#865F5D] m-2 bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 hover:bg-amber-100 rounded-xl p-4 items-center py-3 px-3
+              ${selectedAddressIndex === index ? 'bg-red-50 border-red-800' : 'border-amber-100'}
+              ${selectedAddressIndex === index ? 'line-through text-red-500 bg-red-300' : ''}
+              border hover:border-red-500 `}
+                >
                   <div
-                    className="w-full p-3 border border-gray-300 rounded hover:bg-gray-100 transition cursor-pointer"
-                    onClick={() => handleSave(address)} // This will handle saving the address on click
+                    onClick={() => handleSave(address)}
+                    onDoubleClick={() => handleSelectAddress(index)}
+                    className="cursor-pointer"
                   >
                     {address.label}, {address.province}, {address.city}, {address.district}, {address.village}, {address.postalCode}
                   </div>
-                  <div className="relative">
+
+                  {/* Tombol Edit dan Delete */}
+                  <div className="flex items-center space-x-2">
                     <button
-                      className="text-gray-500 hover:text-black focus:outline-none"
-                    // onClick={() => toggleMenu(index)}
+                      onClick={(e) => handleEditAddress(index, e)} // Pass event to stop propagation
+                      className="text-blue-500 hover:text-blue-700"
                     >
-                      <FaEllipsisV />
+                      <MdEditNote />
                     </button>
-                    {menuIndex === index && (
-                      <div className="absolute right-0 bg-white shadow-lg rounded-md mt-1 z-10">
-                        <button
-                          className="block w-full text-left px-4 py-2 text-blue-500 hover:bg-blue-100"
-                          onClick={() => {
-                            handleEditAddress(index);
-                            setMenuIndex(null); // Close the menu after selection
-                          }}
-                        >
-                          <FaEdit className="inline-block mr-1" /> Edit
-                        </button>
-                        <button
-                          className="block w-full text-left px-4 py-2 text-red-500 hover:bg-red-100"
-                          onClick={() => {
-                            handleDeleteAddress(index);
-                            setMenuIndex(null); // Close the menu after selection
-                          }}
-                        >
-                          <FaTrash className="inline-block mr-1" /> Delete
-                        </button>
-                      </div>
-                    )}
+                    <button
+                      onClick={(e) => handleDeleteAddress(index, e)} // Pass event to stop propagation
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <MdDelete />
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
+
+            {/* Add Address button */}
             <div className="flex justify-end">
               <button
                 className="mt-4 w-auto p-2 bg-blue-500 text-white rounded flex items-center justify-center hover:bg-blue-600 transition"
@@ -156,11 +169,11 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
                 <FaPlus className="mr-1" /> Add Address
               </button>
             </div>
-
           </>
         )}
       </div>
     </div>
+
   );
 };
 

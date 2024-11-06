@@ -20,7 +20,7 @@ const FormInput: React.FC<FormInputProps> = ({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="mb-6 w-full relative">
+    <div className="w-full relative">
       <input
         type={type}
         value={value}

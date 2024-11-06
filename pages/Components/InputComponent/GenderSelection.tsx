@@ -1,4 +1,7 @@
 import React from "react";
+import Image from "next/image";
+import avatarImage from "../../../public/Assets/avatar.png";
+import avatarfemale from "../../../public/Assets/female.png";
 
 interface Props {
   selectedGender: string;
@@ -7,42 +10,34 @@ interface Props {
 
 const GenderSelection: React.FC<Props> = ({ selectedGender, onChange }) => {
   return (
-    <div className="flex-col gap-10">
-      <label>Jenis Kelamin</label>
-      <div className="flex gap-10">
-        <div className="inline-flex items-center">
-          <label
-            className="relative flex cursor-pointer items-center rounded-full p-3"
-            data-ripple-dark="true"
-          >
-            <input
-              name="gender"
-              type="radio"
-              className="before:content[''] peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity hover:before:opacity-10"
-              value="male"
-              checked={selectedGender === "male"}
-              onChange={() => onChange("male")}
-            />
-            <span className="absolute bg-slate-800 w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
-          </label>
-          <label className="text-slate-600 cursor-pointer text-sm">Laki - laki</label>
+    <div>
+      <label className="top-4 left-4 text-xs text-yellow-800 bg-white px-1 opacity-100">
+        Jenis Kelamin
+      </label>
+      <div className="flex gap-3 w-full border-2 border-amber-100 bg-white text-gray-700 leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl p-4">
+        <div
+          className={`relative flex cursor-pointer items-center rounded-full p-3 ${selectedGender === "male" ? "bg-blue-500" : "bg-slate-200"}`}
+          onClick={() => onChange("male")}
+        >
+          <Image
+            src={avatarImage}
+            alt="Male Avatar"
+            width={24}
+            height={24}
+            className="rounded-full"
+          />
         </div>
-        <div className="inline-flex items-center">
-          <label
-            className="relative flex cursor-pointer items-center rounded-full p-3"
-            data-ripple-dark="true"
-          >
-            <input
-              name="gender"
-              type="radio"
-              className="before:content[''] peer h-5 w-5 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-slate-400 before:opacity-0 before:transition-opacity hover:before:opacity-10"
-              value="female"
-              checked={selectedGender === "female"}
-              onChange={() => onChange("female")}
-            />
-            <span className="absolute bg-slate-800 w-3 h-3 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
-          </label>
-          <label className="text-slate-600 cursor-pointer text-sm">Perempuan</label>
+        <div
+          className={`relative flex cursor-pointer items-center rounded-full p-3 ${selectedGender === "female" ? "bg-pink-500" : "bg-slate-200"}`}
+          onClick={() => onChange("female")}
+        >
+          <Image
+            src={avatarfemale}
+            alt="Female Avatar"
+            width={24}
+            height={24}
+            className="rounded-full"
+          />
         </div>
       </div>
     </div>

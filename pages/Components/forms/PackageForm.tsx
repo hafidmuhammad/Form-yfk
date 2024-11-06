@@ -8,6 +8,8 @@ import { MdOutlineRequestQuote } from "react-icons/md";
 import SelectionButton from "../InputComponent/SelectionButton";
 import FormInput from "../InputComponent/FormInput";
 import DateInput from "../InputComponent/DateInput";
+import Image from "next/image";
+import ProductImage from "../../../public/Assets/bibimbap.png";
 
 interface Props {
   nextStep: () => void;
@@ -42,9 +44,16 @@ const PackageForm: React.FC<Props> = ({ nextStep, prevStep, updateFormData }) =>
       <div className="flex flex-col md:flex-row items-center mb-4">
         {/* Image Column */}
         <div className="md:w-1/2 mb-4 md:mb-0 flex justify-center w-full">
-          <div className="w-full h-48 flex items-center justify-center">
+          <div className="flex items-center justify-center">
             <div className="w-full h-full bg-gray-300 rounded-full flex items-center justify-center">
-              <MdOutlineRequestQuote className="w-1/2 h-1/2 text-gray-500" />
+              {/* <MdOutlineRequestQuote className="w-1/2 h-1/2 text-gray-500" /> */}
+              <Image
+                src={ProductImage}
+                alt="Male Avatar"
+                width={24}
+                height={24}
+                className="rounded-full"
+              />
             </div>
           </div>
         </div>
@@ -97,6 +106,7 @@ const PackageForm: React.FC<Props> = ({ nextStep, prevStep, updateFormData }) =>
         {isAddressModalOpen && (
           <AddressModal
             isOpen={isAddressModalOpen}
+
             value={daytimeAddress}
             onClose={() => setAddressModalOpen(false)}
             onSave={(value) => {

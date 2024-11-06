@@ -8,43 +8,64 @@ interface SelectionOption {
 
 interface SelectionGroupProps {
   title: string;
-  selectedValue: string | null;
+  selectedValues: string[];
   options: SelectionOption[];
-  onChange: (value: string) => void;
+  onChange: (value: string[]) => void;
 }
 
-const SelectionGroup: React.FC<SelectionGroupProps> = ({ title, selectedValue, options, onChange }) => {
+
+const SelectionGroup: React.FC<SelectionGroupProps> = ({ title, selectedValues, options, onChange }) => {
+  // Fungsi untuk menangani perubahan pada opsi checkbox
+  const handleCheckboxChange = (value: string) => {
+    const newSelectedValues = selectedValues.includes(value)
+      ? selectedValues.filter((v) => v !== value) // Menghapus jika sudah dipilih
+      : [...selectedValues, value]; // Menambahkan jika belum dipilih
+
+    onChange(newSelectedValues); // Memperbarui nilai pilihan
+  };
+
   return (
-    <div className="border rounded-lg p-4 shadow-md mb-4 bg-gray-50">
-      <h3 className="font-semibold mb-2">{title} (Maksimal 1 Pilihan)</h3>
+    <div className="p-4 mb-4 ">
+
       <div className="flex flex-col">
-        {options.map((option) => (
-          <label
-            key={option.value}
-            className={`flex items-center mb-2 p-2 rounded ${selectedValue === option.value ? 'bg-yellow-300' : ''
-              }`}
-          >
-            <input
-              type="radio"
-              name={title}
-              value={option.value}
-              checked={selectedValue === option.value}
-              onChange={() => onChange(option.value)}
-              className="hidden"
-            />
-            <span
-              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-2
-                ${selectedValue === option.value ? 'border-yellow-600 bg-yellow-300' : 'border-gray-400'}
-              `}
+        <div className="m-2">
+          <div className="font-bold text-[#865F5D] text-2xl">{title}</div>
+          <span className="font-normal text-xs text-[#865F5D]">Pilih semua yang tidak ingin Anda Suka</span>
+        </div>
+
+        {options.map((option) => {
+          const isSelected = selectedValues.includes(option.value);
+          return (
+            <label
+              key={option.value}
+              className={`flex w-full mx-1 border-1 border-amber-100 text-[#865F5D] m-2 bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 hover:bg-amber-100 rounded-xl p-4 items-center py-3 px-3
+                ${isSelected ? 'bg-red-50 border-red-800' : 'border-amber-100'}
+                ${isSelected ? 'line-through text-red-500 bg-red-300' : ''}
+                border hover:border-red-500`}
             >
-              {selectedValue === option.value && (
-                <span className="w-3 h-3 rounded-full bg-yellow-600"></span> // Custom inner dot for selected state
-              )}
-            </span>
-            {option.icon}
-            {option.label}
-          </label>
-        ))}
+
+              <input
+                type="checkbox"
+                name={title}
+                value={option.value}
+                checked={isSelected}
+                onChange={() => handleCheckboxChange(option.value)}
+                className="hidden"
+              />
+              <span
+                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-2
+                  ${isSelected ? 'border-red-600 bg-red-300' : 'border-gray-400'}
+                `}
+              >
+                {isSelected && (
+                  <span className="w-3 h-3 rounded-full bg-red-600"></span>
+                )}
+              </span>
+              {option.icon}
+              <span className={isSelected ? "line-through" : ""}>{option.label}</span>
+            </label>
+          );
+        })}
       </div>
     </div>
   );

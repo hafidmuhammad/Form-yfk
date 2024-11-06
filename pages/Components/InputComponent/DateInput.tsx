@@ -31,7 +31,9 @@ const DateInput: React.FC<DateInputProps> = ({
     <div className="mb-6 w-full relative">
       {/* Floating Label */}
       <label
-        className={`absolute transition-all duration-200 ${isFocused || value ? "top-[-10px] left-2 text-xs text-yellow-600 bg-white px-1 opacity-100 shadow-sm" : "top-2 left-3 text-gray-600 opacity-50"
+        className={`absolute transition-all duration-200 ${isFocused || value
+          ? "top-[-10px] left-1 text-xs  text-[#865F5D] bg-white px-1 opacity-100"
+          : "top-4 left-4 opacity-50"
           }`}
       >
         {label}
@@ -42,7 +44,7 @@ const DateInput: React.FC<DateInputProps> = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(!value)}
         required={required}
-        className={`block w-full rounded-md border-2 border-gray-300 bg-white py-3 px-3 text-gray-700 leading-tight transition duration-150 ease-in-out focus:border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500 shadow-sm hover:shadow-md`}
+        className={`block w-full border-2 border-amber-100 bg-white text-gray-700 leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl p-4 `}
       />
     </div>
   );

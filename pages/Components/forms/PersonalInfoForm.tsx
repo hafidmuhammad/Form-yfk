@@ -46,31 +46,52 @@ const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {
       <h1 className="mb-9 font-semibold text-2xl text-yellow-950 "> Mohon masukkan data diri kamu
       </h1>
       <form onSubmit={handleSubmit}>
-        <FormInput
-          label="Nama"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        // required
-        />
-        <FormInput
-          label="No WhatsApp"
-          type="text"
-          value={whatsapp}
-          onChange={(e) => setWhatsapp(e.target.value)}
-        // required
-        />
-        <FormInput
-          label="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        // required
-        />
-        <DateInput label="Select Date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
-        <GenderSelection selectedGender={gender} onChange={setGender} />
+        <div className="mb-4">
+          <FormInput
+            label="Nama"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          // required
+          />
+        </div>
+
+        <div className="mb-4">
+          <FormInput
+            label="No WhatsApp"
+            type="text"
+            value={whatsapp}
+            onChange={(e) => setWhatsapp(e.target.value)}
+          // required
+          />
+        </div>
+
+        <div className="mb-4">
+          <FormInput
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          // required
+          />
+        </div>
+
+        <div className="mb-4">
+          <DateInput
+            label="Select Date"
+            value={dateOfBirth}
+            onChange={(e) => setDateOfBirth(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <GenderSelection selectedGender={gender} onChange={setGender} />
+        </div>
+
         <FormButton label="Selanjutnya" type="submit" styleType="primary" />
       </form>
+
       <ConfirmModalPersonalInfo
         isOpen={isModalOpen}
         onConfirm={handleConfirm}
