@@ -5,12 +5,11 @@ const PaymentConfirmation: React.FC = () => {
   const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
-    // Trigger the fade-in animation after the component mounts
     const timer = setTimeout(() => {
       setFadeIn(true);
-    }, 100); // Start fade-in animation shortly after the component mounts
+    }, 100);
 
-    return () => clearTimeout(timer); // Cleanup the timer on unmount
+    return () => clearTimeout(timer);
   }, []);
 
   return (

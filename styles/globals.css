@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --background-color: #00ffff;
+  --foreground: #171717; /* Default light foreground */
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Regular.woff2") format("woff2"),
+    url("/fonts/Inter-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Dark mode styles can be specified here if needed */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #00ffff;
+
+    --foreground: #171717; /* Default light foreground */
+  }
+}
+
+body {
+  /* font-family: "Poppins", sans-serif; */
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Inter", sans-serif;
+}

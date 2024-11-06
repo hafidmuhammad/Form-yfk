@@ -4,7 +4,7 @@ interface FormButtonProps {
   label: string;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
-  styleType?: "primary" | "secondary";
+  styleType?: "primary" | "secondary"; // primary for default, secondary for cancel
 }
 
 const FormButton: React.FC<FormButtonProps> = ({ label, onClick, type = "button", styleType = "primary" }) => {
@@ -12,7 +12,8 @@ const FormButton: React.FC<FormButtonProps> = ({ label, onClick, type = "button"
     <button
       type={type}
       onClick={onClick}
-      className="w-full bg-yellow-400 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-5">
+      className={`w-full font-bold py-3 px-4 rounded-xl mt-5
+        ${styleType === "primary" ? "bg-yellow-400 hover:bg-yellow-600 text-white" : "bg-red-500 hover:bg-red-700 text-white"}`}>
       {label}
     </button>
   );
