@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { FaUser, FaBox, FaCheck, FaCreditCard, FaTrophy, FaCheckSquare } from "react-icons/fa";
-import PersonalInfoForm from "./forms/PersonalInfoForm";
-import PackageForm from "./forms/PackageForm";
-import OrderConfirmation from "./forms/OrderConfirmation";
-import Payment from "./forms/Payment";
-import PaymentConfirmation from "./forms/PaymentConfirmation";
+import PersonalInfoForm from "./formsComponent/PersonalInfoForm";
+import PackageForm from "./formsComponent/PackageForm";
+import OrderConfirmation from "./formsComponent/OrderConfirmation";
+import Payment from "./formsComponent/Payment";
+import PaymentConfirmation from "./formsComponent/PaymentConfirmation";
 import { useFormContext } from "./FormContext";
 import Header from "./Header";
-import OrderDetails from './forms/OrderDetails';
+import OrderDetails from './formsComponent/OrderDetails';
 
 const steps = [
   { label: "Data Diri", icon: <FaUser /> },
@@ -44,13 +44,12 @@ const Stepper: React.FC = () => {
     }
   };
 
-  // Calculate progress
   const progress = (step - 1) / (steps.length - 1) * 100;
 
   return (
-    <div>
-      <Header prevStep={prevStep} progress={progress} /> {/* Pass progress to Header */}
-      <div className="container mx-auto p-4 flex flex-col items-center space-y-4 md:space-y-6 lg:space-y-8 ">
+    <div className="flex flex-col flex-grow">
+      <Header prevStep={prevStep} progress={progress} />
+      <div className="container mx-auto p-4 flex flex-col items-center space-y-4 md:space-y-6 lg:space-y-8 flex-grow">
 
         {/* Step Content */}
         <div className="rounded-lg p-4 w-full h-full md:w-3/4 lg:w-2/4 mb-20 md:mb-0">
@@ -62,3 +61,4 @@ const Stepper: React.FC = () => {
 };
 
 export default Stepper;
+

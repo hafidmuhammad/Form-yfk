@@ -26,6 +26,9 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
     { label: "Kantor", province: "DKI Jakarta", city: "Jakarta", district: "Menteng", village: "Gondangdia", postalCode: "10350" },
     { label: "Sekolah", province: "DKI Jakarta", city: "Jakarta", district: "Cilincing", village: "Kampung Melayu", postalCode: "14110" },
     { label: "Apartemen", province: "DKI Jakarta", city: "Jakarta", district: "Setiabudi", village: "Kuningan", postalCode: "12910" },
+    { label: "Apartemen", province: "DKI Jakarta", city: "Jakarta", district: "Setiabudi", village: "Kuningan", postalCode: "12910" },
+    { label: "Apartemen", province: "DKI Jakarta", city: "Jakarta", district: "Setiabudi", village: "Kuningan", postalCode: "12910" },
+    { label: "Apartemen", province: "DKI Jakarta", city: "Jakarta", district: "Setiabudi", village: "Kuningan", postalCode: "12910" },
   ]);
 
   const [newAddress, setNewAddress] = useState<Address>({
@@ -95,12 +98,11 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end sm:items-center justify-center pb-4 sm:pb-0">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center pb-4 sm:pb-0">
       <div
-        className="bg-[#F8EFE0] p-6 pb-8 rounded-lg shadow-lg max-w-md w-full h-[85vh]
-              sm:h-[90vh] md:max-h-[75vh] overflow-hidden flex flex-col"
-      >
-        <div className="flex justify-between items-center mb-4">
+        className="bg-[#F8EFE0] p-6 pb-8 rounded-lg shadow-lg max-w-md w-full h-[85vh] sm:h-[90vh] md:max-h-[75vh] overflow-y-auto flex flex-col">
+
+        <div className="flex justify-between items-center mb-4 h-[10%]">
           {/* This part will be hidden when showAddForm is true */}
           {!showAddForm && (
             <div className="m-2">
@@ -125,50 +127,50 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
         ) : (
           <>
             {/* Scrollable address list with overflow */}
-            <div className="max-h-[50vh] sm:max-h-60 overflow-y-auto mb-4">
+            <div className="flex flex-col overflow-y-auto h-[85%] gap-1">
               {addresses.map((address, index) => (
                 <div key={index}
-                  className={`flex justify-between mx-1 border-1 border-amber-100 text-[#865F5D] m-2 bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 hover:bg-amber-100 rounded-xl p-4 items-center py-3 px-3
-              ${selectedAddressIndex === index ? 'bg-red-50 border-red-800' : 'border-amber-100'}
-              ${selectedAddressIndex === index ? 'line-through text-red-500 bg-red-300' : ''}
-              border hover:border-red-500 `}
-                >
+                  className={`flex justify-between mx-1 border-1 border-amber-100 text-[#865F5D] bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 hover:bg-amber-100 rounded-xl p-4 items-center py-3 px-3 ${selectedAddressIndex === index ? 'bg-red-50 border-red-800' : 'border-amber-100'} ${selectedAddressIndex === index ? 'line-through text-red-500 bg-red-300' : ''} border hover:border-red-500`}>
                   <div
                     onClick={() => handleSave(address)}
                     onDoubleClick={() => handleSelectAddress(index)}
-                    className="cursor-pointer"
+                    className="cursor-pointer overflow-hidden text-ellipsis block max-h-5 leading-tight"
                   >
                     {address.label}, {address.province}, {address.city}, {address.district}, {address.village}, {address.postalCode}
                   </div>
 
+
+
                   {/* Tombol Edit dan Delete */}
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center">
                     <button
                       onClick={(e) => handleEditAddress(index, e)} // Pass event to stop propagation
-                      className="text-blue-500 hover:text-blue-700"
+                      className="text-blue-500 hover:text-blue-700 hover:bg-blue-100 p-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
                     >
-                      <MdEditNote />
+                      <FaEdit className="text-xl" />
                     </button>
                     <button
                       onClick={(e) => handleDeleteAddress(index, e)} // Pass event to stop propagation
-                      className="text-red-500 hover:text-red-700"
+                      className="text-red-500 hover:text-red-700 hover:bg-red-100 p-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
                     >
-                      <MdDelete />
+                      <FaTrash className="text-xl" />
                     </button>
                   </div>
+
                 </div>
               ))}
             </div>
 
             {/* Add Address button */}
-            <div className="flex justify-end">
+            <div className="flex justify-end h-[5%] mt-4">
               <button
-                className="mt-4 w-auto p-2 bg-blue-500 text-white rounded flex items-center justify-center hover:bg-blue-600 transition"
+                className="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center hover:bg-blue-600 transition"
                 onClick={() => setShowAddForm(true)}
               >
-                <FaPlus className="mr-1" /> Add Address
+                <FaPlus className="text-xl" />  {/* Adjust the size of the icon */}
               </button>
             </div>
+
           </>
         )}
       </div>

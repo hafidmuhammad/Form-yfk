@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import FormButton from "../InputComponent/FormButton";
 import Image from "next/image";
 import ProductImage from "../../../public/Assets/bibimbap.png";
+import ProductLayout from "../viewComponent/ProductLayout";
 
 interface OrderDetail {
   date: string;
@@ -43,7 +44,7 @@ const OrderConfirmation: React.FC<Props> = ({ nextStep, prevStep, orderDetails }
     specialRequest: false,
     orderConfirmation: false,
   });
-  const [isCheckboxValid, setIsCheckboxValid] = useState(false); // State for checkbox validation
+  const [isCheckboxValid, setIsCheckboxValid] = useState(false);
 
   const orderData: MonthlyOrder[] = [
     {
@@ -139,40 +140,25 @@ const OrderConfirmation: React.FC<Props> = ({ nextStep, prevStep, orderDetails }
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
     setCheckboxes((prev) => ({ ...prev, [name]: checked }));
-    setIsCheckboxValid(checkboxes.specialRequest && checkboxes.orderConfirmation); // Update validity based on checkbox state
+    setIsCheckboxValid(checkboxes.specialRequest && checkboxes.orderConfirmation);
   };
 
   const handleNextStep = () => {
     if (checkboxes.specialRequest && checkboxes.orderConfirmation) {
-      nextStep(); // Proceed to the next step if checkboxes are checked
+      nextStep();
     } else {
-      setIsCheckboxValid(true); // Show validation error if checkboxes are not checked
+      setIsCheckboxValid(true);
     }
   };
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row items-center mb-4">
-        {/* Image Column */}
-        <div className="md:w-1/2 mb-4 md:mb-0 flex justify-center w-full">
-          <div className="w-full h-48 flex items-center justify-center">
-            <div className="rounded-full flex items-center justify-center">
-              <Image
-                src={ProductImage}
-                alt="Male Avatar"
-                width={24}
-                height={24}
-                className="rounded-full"
-              />
-            </div>
-          </div>
-        </div>
-        {/* Text Column */}
-        <div className="md:w-1/8 md:pl-4 text-center md:text-left">
-          <h2 className="text-xl font-bold">WEIGHTLOSS</h2>
-          <p className="text-gray-600">1 Paket.</p>
-          <p className="text-gray-600">Monthly Lunch</p>
-        </div>
+      <div className="container mx-auto">
+        <ProductLayout
+          title="WEIGHTLOSS"
+          description="1 Paket"
+          packageType="Monthly Lunch"
+        />
       </div>
 
       {/* Accordion for Order Details by Month */}

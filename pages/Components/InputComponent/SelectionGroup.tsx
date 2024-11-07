@@ -19,7 +19,7 @@ const SelectionGroup: React.FC<SelectionGroupProps> = ({ title, selectedValues, 
   const handleCheckboxChange = (value: string) => {
     const newSelectedValues = selectedValues.includes(value)
       ? selectedValues.filter((v) => v !== value) // Menghapus jika sudah dipilih
-      : [...selectedValues, value]; // Menambahkan jika belum dipilih
+      : [...selectedValues, value];
 
     onChange(newSelectedValues); // Memperbarui nilai pilihan
   };

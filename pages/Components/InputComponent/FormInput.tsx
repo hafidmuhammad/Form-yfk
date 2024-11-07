@@ -7,6 +7,7 @@ interface FormInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   placeholder?: string;
+  readOnly?: boolean; // Menambahkan properti readOnly
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -16,6 +17,7 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
   required = false,
   placeholder,
+  readOnly = false, // Default readOnly adalah false
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -29,7 +31,9 @@ const FormInput: React.FC<FormInputProps> = ({
         placeholder={placeholder}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(!value)}
-        className={`block w-full border-2 border-amber-100 bg-white text-gray-700 leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl p-4 `}
+        className={`block w-full border-2 border-amber-100 bg-white text-gray-700 leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl p-4 ${readOnly ? "bg-gray-200 cursor-not-allowed" : ""
+          }`}
+        readOnly={readOnly}
       />
       <label
         className={`absolute transition-all duration-200 ${isFocused || value

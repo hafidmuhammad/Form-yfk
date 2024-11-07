@@ -29,10 +29,11 @@ const RequestModal: React.FC<RequestModalProps> = ({ isOpen, value, onClose, onS
     };
 
     // Filter out empty selections and format the selected values
-    const formattedValues = Object.entries(selectedValues)
-      .filter(([_, value]) => value.length > 0) // Only include non-empty selections
-      .map(([key, value]) => `${key}: ${value.join(', ')}`) // Format with key for clarity
+    const formattedValues = Object.values(selectedValues)
+      .filter((value) => value.length > 0)
+      .map((value) => value.join(', '))
       .join('; ');
+
 
     onSave(formattedValues);
     setShowSuccessMessage(true);
@@ -49,7 +50,7 @@ const RequestModal: React.FC<RequestModalProps> = ({ isOpen, value, onClose, onS
       >
         <div className="flex justify-end items-center mb-4">
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-            <AiOutlineClose className="text-2xl" />
+            <AiOutlineClose className="text-xl" />
           </button>
         </div>
 

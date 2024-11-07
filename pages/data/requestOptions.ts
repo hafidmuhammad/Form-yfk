@@ -122,6 +122,7 @@ export const requestOptions = {
     { label: "Kolesterol", value: "kolesterol", icon: FaLeaf },
     { label: "Asam Urat", value: "asam_urat", icon: FaLeaf },
   ] as Option[],
+
   flavorOptions: [
     {
       label: "Tanpa Pedas",

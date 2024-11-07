@@ -1,0 +1,326 @@
+{
+  "provinsi": [
+    {
+      "id": 1,
+      "kode": "AC",
+      "nama": "Aceh",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Banda Aceh",
+          "nama": "Banda Aceh",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Baiturrahman",
+              "nama": "Baiturrahman",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Peunayong",
+                  "nama": "Peunayong",
+                  "kodePos": "23112"
+                },
+                {
+                  "id": 2,
+                  "kode": "Kampung Baru",
+                  "nama": "Kampung Baru",
+                  "kodePos": "23113"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "kode": "Ulee Kareng",
+              "nama": "Ulee Kareng",
+              "kelurahan": [
+                {
+                  "id": 3,
+                  "kode": "Lambaro",
+                  "nama": "Lambaro",
+                  "kodePos": "23114"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "kode": "SS",
+      "nama": "Sumatera Selatan",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Palembang",
+          "nama": "Palembang",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Ilir Timur",
+              "nama": "Ilir Timur",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Plaju",
+                  "nama": "Plaju",
+                  "kodePos": "30114"
+                },
+                {
+                  "id": 2,
+                  "kode": "Sekip",
+                  "nama": "Sekip",
+                  "kodePos": "30115"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "kode": "JB",
+      "nama": "Jawa Barat",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Bandung",
+          "nama": "Bandung",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Cidadap",
+              "nama": "Cidadap",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Dago",
+                  "nama": "Dago",
+                  "kodePos": "40133"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "kode": "JKI",
+      "nama": "Jakarta",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Jakarta Pusat",
+          "nama": "Jakarta Pusat",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Menteng",
+              "nama": "Menteng",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Gondangdia",
+                  "nama": "Gondangdia",
+                  "kodePos": "10350"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "kode": "SB",
+      "nama": "Sulawesi Barat",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Mamuju",
+          "nama": "Mamuju",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Simboro",
+              "nama": "Simboro",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Mamuju",
+                  "nama": "Mamuju",
+                  "kodePos": "91511"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "kode": "JBT",
+      "nama": "Jawa Tengah",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Semarang",
+          "nama": "Semarang",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Semarang Selatan",
+              "nama": "Semarang Selatan",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Tlogosari",
+                  "nama": "Tlogosari",
+                  "kodePos": "50231"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "kode": "KB",
+      "nama": "Kalimantan Barat",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Pontianak",
+          "nama": "Pontianak",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Pontianak Selatan",
+              "nama": "Pontianak Selatan",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Pahlawan",
+                  "nama": "Pahlawan",
+                  "kodePos": "78114"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "kode": "KT",
+      "nama": "Kalimantan Timur",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Samarinda",
+          "nama": "Samarinda",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Samarinda Ulu",
+              "nama": "Samarinda Ulu",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Sungai Pinang",
+                  "nama": "Sungai Pinang",
+                  "kodePos": "75119"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "kode": "NTT",
+      "nama": "Nusa Tenggara Timur",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Kupang",
+          "nama": "Kupang",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Kelapa Lima",
+              "nama": "Kelapa Lima",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Naioni",
+                  "nama": "Naioni",
+                  "kodePos": "85211"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "kode": "BALI",
+      "nama": "Bali",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Denpasar",
+          "nama": "Denpasar",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Denpasar Selatan",
+              "nama": "Denpasar Selatan",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Pemecutan Klod",
+                  "nama": "Pemecutan Klod",
+                  "kodePos": "80119"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "kode": "SULSEL",
+      "nama": "Sulawesi Selatan",
+      "kota": [
+        {
+          "id": 1,
+          "kode": "Makassar",
+          "nama": "Makassar",
+          "kecamatan": [
+            {
+              "id": 1,
+              "kode": "Makassar",
+              "nama": "Makassar",
+              "kelurahan": [
+                {
+                  "id": 1,
+                  "kode": "Lau",
+                  "nama": "Lau",
+                  "kodePos": "90000"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

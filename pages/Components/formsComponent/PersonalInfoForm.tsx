@@ -32,21 +32,20 @@ const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {
       gender,
       dateOfBirth,
     });
-    setIsModalOpen(false); // Close modal
-    nextStep(); // Proceed to the next step
+    setIsModalOpen(false);
+    nextStep();
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false); // Close modal on cancel
+    setIsModalOpen(false);
   };
 
   return (
     <>
-
       <h1 className="mb-9 font-semibold text-2xl text-yellow-950 "> Mohon masukkan data diri kamu
       </h1>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
+        <div className="mb-3">
           <FormInput
             label="Nama"
             type="text"
@@ -56,7 +55,7 @@ const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-3">
           <FormInput
             label="No WhatsApp"
             type="text"
@@ -66,7 +65,7 @@ const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-3">
           <FormInput
             label="Email"
             type="email"
@@ -76,7 +75,7 @@ const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-1">
           <DateInput
             label="Select Date"
             value={dateOfBirth}
@@ -85,13 +84,11 @@ const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-2">
           <GenderSelection selectedGender={gender} onChange={setGender} />
         </div>
-
         <FormButton label="Selanjutnya" type="submit" styleType="primary" />
       </form>
-
       <ConfirmModalPersonalInfo
         isOpen={isModalOpen}
         onConfirm={handleConfirm}
