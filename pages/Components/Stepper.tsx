@@ -8,6 +8,7 @@ import PaymentConfirmation from "./formsComponent/PaymentConfirmation";
 import { useFormContext } from "./FormContext";
 import Header from "./Header";
 import OrderDetails from './formsComponent/OrderDetails';
+import Footer from "./Footer";
 
 const steps = [
   { label: "Data Diri", icon: <FaUser /> },
@@ -49,13 +50,17 @@ const Stepper: React.FC = () => {
   return (
     <div className="flex flex-col flex-grow">
       <Header prevStep={prevStep} progress={progress} />
-      <div className="container mx-auto p-4 flex flex-col items-center space-y-4 md:space-y-6 lg:space-y-8 flex-grow">
+      <div className="container mx-auto p-4 flex flex-col items-center">
 
-        {/* Step Content */}
-        <div className="rounded-lg p-4 w-full h-full md:w-3/4 lg:w-2/4 mb-20 md:mb-0">
+        <div className="rounded-lg p-4 w-full h-full md:w-3/4 lg:w-2/4">
           {renderStep()}
         </div>
       </div>
+
+
+
+      <Footer />
+
     </div>
   );
 };

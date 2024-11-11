@@ -1,38 +1,47 @@
 import React from "react";
 import Image from "next/image";
-import ProductImage from "../../../public/Assets/bibimbap.png";
+
 interface ProductLayoutProps {
   title: string;
   description: string;
   packageType: string;
+  imageSrc: string;  // Accept the image source as a prop
 }
 
-const ProductLayout: React.FC<ProductLayoutProps> = ({ title, description, packageType }) => {
+const ProductLayout: React.FC<ProductLayoutProps> = ({ title, description, packageType, imageSrc }) => {
   return (
-    <div className="flex flex-col md:flex-row items-center mb-6">
+    <div
+      className="flex items-center mb-6 border-2 border-amber-100 bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl cursor-pointer text-yellow-800"
+      style={{ width: '100%', maxWidth: '312px', height: '90px' }}
+    >
       {/* Image Column */}
-      <div className="md:w-1/2 mb-4 md:mb-0 flex justify-center w-full">
+      <div className="w-1/3 flex justify-center">
         <div className="flex items-center justify-center">
-          {/* Gambar produk yang disesuaikan */}
-          <div className="w-36 h-36 bg-gray-300 rounded-full flex items-center justify-center relative">
+          <div className="flex items-center justify-center relative">
             <Image
-              src={ProductImage} // Gambar produk
+              src={imageSrc}
               alt={title}
-              width={150}
-              height={150}
-              className="rounded-full" // Gambar berbentuk bulat
+              width={69}
+              height={64}
+              className="rounded-full"
             />
           </div>
         </div>
       </div>
 
       {/* Text Column */}
-      <div className="md:w-1/2 md:pl-8 text-center md:text-left">
-        <h2 className="text-xl font-bold mb-2 text-gray-800">{title}</h2>
-        <p className="text-gray-600 mb-2">{description}</p>
-        <p className="text-gray-600">{packageType}</p>
+      <div className="w-2/3">
+        <h2 className="text-base md:text-lg text-gray-800">{title}</h2>
+        <p className="text-xs md:text-sm text-gray-600">{description}</p>
+        <p className="text-xs text-gray-600">{packageType}</p>
       </div>
     </div>
+
+
+
+
+
+
   );
 };
 

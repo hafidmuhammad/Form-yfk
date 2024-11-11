@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import React from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
+import logo from "../../public/Assets/LOGO ITEM 1.png";
 
 type HeaderProps = {
   prevStep: () => void;
@@ -8,8 +10,8 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ prevStep, progress }) => {
   return (
-    <div className="top-0 left-0 right-0 bg-[#FEFCF4]">
-      <div className="flex items-center justify-between p-4">
+    <div className="top-0 left-0 right-0 bg-[#FFD823]">
+      {/* <div className="flex items-center justify-between p-4">
         <IoIosArrowBack
           className="w-6 h-6 mr-2 cursor-pointer text-gray-700"
           onClick={prevStep}
@@ -22,7 +24,30 @@ const Header: React.FC<HeaderProps> = ({ prevStep, progress }) => {
           className="w-10 h-10 cursor-pointer"
           alt="Yellow Fit Logo"
         />
+      </div> */}
+      <div className="flex items-center p-6">
+        {/* Back Arrow */}
+        <div className="flex-none w-5">
+          <IoIosArrowBack
+            className="w-6 h-6 mr-2 cursor-pointer text-gray-700"
+            onClick={prevStep}
+          />
+        </div>
+
+        {/* Image and Logo */}
+        <div className="flex-grow flex justify-center">
+          <Image
+            src={logo}
+            alt="Yellowfit Logo"
+            width={200}
+            height={200}
+            className="mx-auto"
+          />
+        </div>
       </div>
+
+
+
 
       {/* Progress Bar with more defined track */}
       <div className="w-full bg-[#F1F1F1] h-1 rounded-full border-t border-yellow-500">

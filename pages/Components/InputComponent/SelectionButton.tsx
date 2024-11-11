@@ -3,45 +3,55 @@ import { IoIosArrowForward } from "react-icons/io";
 
 interface SelectionButtonProps {
   label: string;
-  selectedLabel: string; // Label to show when selected
+  selectedLabel: string; // Label to show when selected, can also include color
   onClick: () => void;
+  leftLogo?: React.ReactNode;  // Optional logo on the left
+  rightLogo?: React.ReactNode; // Optional logo on the right
+  selectedLabelColor?: string; // Optional prop for custom selected label color
 }
 
 const SelectionButton: React.FC<SelectionButtonProps> = ({
   label,
   selectedLabel,
   onClick,
+  leftLogo,
+  rightLogo,
+  selectedLabelColor = "text-red-500", // Default color for selectedLabel
 }) => {
   const [isSelected, setIsSelected] = useState(false);
 
-  // Toggle selection state and handle onClick
   const handleClick = () => {
-    setIsSelected(true); // Set selection state
+    setIsSelected(!isSelected); // Toggle selection state
     onClick(); // Call onClick prop function
   };
 
   return (
     <div className="relative w-full">
-      {/* Floating Label */}
-      {isSelected && (
-        <label
-          className="absolute top-[-10px] left-1 text-xs text-yellow-800 bg-white px-1 opacity-100 transition-all duration-200"
-        >
-          {label}
-        </label>
-      )}
       <button
         onClick={handleClick}
         type="button"
-        className={`w-full border-2 border-amber-100 bg-white text-[#865F5D] py-3 px-3 leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 hover:bg-amber-100 rounded-xl p-4 flex items-center justify-between ${isSelected ? "pt-6" : ""
-          }`}
+        className={`w-full border-2 border-amber-100 bg-white text-[#865F5D] py-3 px-3 leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 hover:bg-amber-100 rounded-xl p-4 flex items-center justify-between`}
       >
-        <span className="truncate text-base opacity-75">
+        {/* Left logo */}
+        {leftLogo && (
+          <div className="w-[10%] flex items-center justify-start ml-2">
+            {leftLogo}
+          </div>
+        )}
+
+        {/* Label */}
+        <span
+          className={`truncate text-base opacity-75 w-full text-left ${isSelected ? selectedLabelColor : "text-yellow-800"}`}
+        >
           {isSelected ? selectedLabel : label}
         </span>
-        <div className="flex items-center ml-2">
-          <IoIosArrowForward />
-        </div>
+
+        {/* Right logo */}
+        {rightLogo && (
+          <div className="w-[10%] flex items-center justify-center ml-2">
+            {rightLogo}
+          </div>
+        )}
       </button>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import avatarImage from "../../../public/Assets/avatar.png";
-import avatarfemale from "../../../public/Assets/female.png";
+import avatarImage from "../../../public/Assets/image 28.png";
+import avatarfemale from "../../../public/Assets/image 29.png";
 
 interface Props {
   selectedGender: string;
@@ -9,36 +9,51 @@ interface Props {
 }
 
 const GenderSelection: React.FC<Props> = ({ selectedGender, onChange }) => {
+  // Gender options array with associated properties
+  const genderOptions = [
+    {
+      gender: "male",
+      label: "Laki-laki",
+      avatar: avatarImage,
+      bgColor: "bg-white",
+      borderColor: "border-blue-500",
+      iconBgColor: "bg-white",
+    },
+    {
+      gender: "female",
+      label: "Perempuan",
+      avatar: avatarfemale,
+      bgColor: "bg-white",
+      borderColor: "border-pink-500",
+      iconBgColor: "bg-white",
+    },
+  ];
+
   return (
     <div>
-      <label className="top-4 left-4 text-xs text-yellow-800 bg-white px-1 opacity-100">
+      <h1 className="inline-flex items-center text-xs font-medium text-yellow-800 mb-4">
         Jenis Kelamin
-      </label>
-      <div className="flex gap-3 w-full border-2 border-amber-100 bg-white text-gray-700 leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl p-4">
-        <div
-          className={`relative flex cursor-pointer items-center rounded-full p-3 ${selectedGender === "male" ? "bg-blue-500" : "bg-slate-200"}`}
-          onClick={() => onChange("male")}
-        >
-          <Image
-            src={avatarImage}
-            alt="Male Avatar"
-            width={24}
-            height={24}
-            className="rounded-full"
-          />
-        </div>
-        <div
-          className={`relative flex cursor-pointer items-center rounded-full p-3 ${selectedGender === "female" ? "bg-pink-500" : "bg-slate-200"}`}
-          onClick={() => onChange("female")}
-        >
-          <Image
-            src={avatarfemale}
-            alt="Female Avatar"
-            width={24}
-            height={24}
-            className="rounded-full"
-          />
-        </div>
+      </h1>
+      <div className="flex gap-4 w-full">
+        {genderOptions.map((option) => (
+          <div
+            key={option.gender}
+            className={`flex items-center w-full gap-2 cursor-pointer p-3 border-2 rounded-xl transition duration-150 ease-in-out ${selectedGender === option.gender ? option.borderColor : "border-amber-100"
+              } ${selectedGender === option.gender ? option.bgColor : "bg-white"}`}
+            onClick={() => onChange(option.gender)}
+          >
+            <div className={`flex items-center justify-center p-2 ${option.iconBgColor}`}>
+              <Image
+                src={option.avatar}
+                alt={`${option.label} Avatar`}
+                width={20}
+                height={20}
+                className="rounded-full"
+              />
+            </div>
+            <span className="text-sm text-gray-700">{option.label}</span>
+          </div>
+        ))}
       </div>
     </div>
   );

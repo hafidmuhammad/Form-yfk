@@ -20,22 +20,22 @@ const OrderDetail: React.FC<Props> = ({ nextStep, prevStep }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white">
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">Detail Order</h2>
+    <div className="max-w-md mx-auto p-6">
+      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Detail Order</h2>
 
-      <div className="mb-6">
-        <div> Total Pembayaran Sebesar:</div>
-        <div className="bg-white rounded-lg p-6 grid grid-cols-5 items-center">
-          <div className="col-span-4 text-blue-600 font-bold text-2xl text-center">
+      <div className="mb-8">
+        <div className="text-lg font-semibold text-gray-700 mb-2">Total Pembayaran Sebesar:</div>
+        <div className="rounded-xl p-6 bg-white shadow-lg grid grid-cols-5 items-center">
+          <div className="col-span-4 text-blue-600 font-extrabold text-3xl text-center tracking-wide">
             Rp {totalPayment.toLocaleString()}
           </div>
           <button
             onClick={copyToClipboard}
-            className="flex items-center justify-center col-span-1 bg-transparent hover:bg-yellow-500 text-yellow-700 font-semibold hover:text-white py-2 px-4 border border-yellow-500 hover:border-transparent rounded transition-all duration-300 ease-in-out w-full"
+            className="flex items-center justify-center col-span-1 bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out w-full shadow-md hover:shadow-lg"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 mr-1"
+              className="h-5 w-5 mr-1"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -45,11 +45,10 @@ const OrderDetail: React.FC<Props> = ({ nextStep, prevStep }) => {
             Salin
           </button>
         </div>
-
       </div>
 
-      <div className="mb-6 ">
-        <div className="bg-white p-4">
+      <div className="mb-6">
+        <div className="p-4 bg-white rounded-xl shadow-md">
           <table className="min-w-full border-collapse">
             <tbody className="divide-y divide-gray-200">
               <tr className="hover:bg-gray-50">
@@ -100,21 +99,20 @@ const OrderDetail: React.FC<Props> = ({ nextStep, prevStep }) => {
               </tr>
             </tbody>
           </table>
-
-
         </div>
-        <div className="mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700" role="alert">
+
+        <div className="mt-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700" role="alert">
           <p className="font-bold">Peringatan!</p>
           <p>*Nomor invoice wajib disalin pada berita acara.</p>
         </div>
       </div>
 
-
-      <div className="flex justify-between mt-4 gap-2">
+      <div className="flex justify-between mt-4 gap-4">
         <FormButton label="Tidak" onClick={prevStep} styleType="secondary" />
         <FormButton label="Lanjutkan Pembelian" onClick={nextStep} type="submit" styleType="primary" />
       </div>
-    </div >
+    </div>
+
   );
 };
 

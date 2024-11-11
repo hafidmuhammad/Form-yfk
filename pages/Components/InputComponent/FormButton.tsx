@@ -12,8 +12,8 @@ const FormButton: React.FC<FormButtonProps> = ({ label, onClick, type = "button"
     <button
       type={type}
       onClick={onClick}
-      className={`w-full font-bold py-3 px-4 rounded-xl mt-5
-        ${styleType === "primary" ? "bg-yellow-400 hover:bg-yellow-600 text-white" : "bg-red-500 hover:bg-red-700 text-white"}`}>
+      className={`w-full font-light py-3 px-4 rounded-xl mt-5 text-black
+        ${styleType === "primary" ? "bg-yellow-400 hover:bg-yellow-600" : "bg-red-500 hover:bg-red-700"}`}>
       {label}
     </button>
   );

@@ -6,7 +6,8 @@ export interface FormData {
   date: string;
   startDate: string;
   request: string;
-  daytimeAddress: string;
+  daytimeAddressLunch: string;  // Separate for lunch address
+  daytimeAddressDinner: string; // Separate for dinner address
   nighttimeAddress: string;
   diningEquipment: string;
   whatsapp: string;
@@ -26,7 +27,8 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children
     date: '',
     startDate: '',
     request: '',
-    daytimeAddress: '',
+    daytimeAddressLunch: '',  // Initialize for lunch
+    daytimeAddressDinner: '', // Initialize for dinner
     nighttimeAddress: '',
     diningEquipment: '',
     whatsapp: '',

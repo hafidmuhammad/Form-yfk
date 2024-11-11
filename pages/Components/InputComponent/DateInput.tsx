@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import Flatpickr from "react-flatpickr";
-import "flatpickr/dist/flatpickr.css";
+import React, { useState, useEffect } from "react";
+import SelectInput from "./SelectForm";
 
 interface DateInputProps {
   label: string;
-  value?: string; // Keep this as a string to match the onChange event
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // Event-like onChange
+  value?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
 }
 
@@ -15,37 +14,85 @@ const DateInput: React.FC<DateInputProps> = ({
   onChange,
   required = false,
 }) => {
-  const [isFocused, setIsFocused] = useState(false);
+  // Set default date to 1 January 1995
+  const [day, setDay] = useState("1");
+  const [month, setMonth] = useState("1");
+  const [year, setYear] = useState("1995");
 
-  // Handle Flatpickr's change event
-  const handleDateChange = (selectedDates: Date[]) => {
-    if (selectedDates.length > 0) {
-      const dateStr = selectedDates[0].toISOString().split('T')[0]; // Convert date to string format (YYYY-MM-DD)
+  const monthNames = [
+    { label: "January", value: "1" },
+    { label: "February", value: "2" },
+    { label: "March", value: "3" },
+    { label: "April", value: "4" },
+    { label: "May", value: "5" },
+    { label: "June", value: "6" },
+    { label: "July", value: "7" },
+    { label: "August", value: "8" },
+    { label: "September", value: "9" },
+    { label: "October", value: "10" },
+    { label: "November", value: "11" },
+    { label: "December", value: "12" },
+  ];
+
+  const daysInMonth = (month: number, year: number) => new Date(year, month, 0).getDate();
+  const getDayOptions = () => {
+    const totalDays = month ? daysInMonth(parseInt(month), parseInt(year)) : 31;
+    return Array.from({ length: totalDays }, (_, i) => ({
+      label: `${i + 1}`,
+      value: `${i + 1}`,
+    }));
+  };
+
+  const currentYear = new Date().getFullYear();
+  const yearOptions = Array.from({ length: 101 }, (_, i) => ({
+    label: `${currentYear - i}`,
+    value: `${currentYear - i}`,
+  }));
+
+  // Handle date change
+  const handleDateChange = () => {
+    if (day && month && year) {
+      const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
       onChange({ target: { value: dateStr } } as React.ChangeEvent<HTMLInputElement>);
-    } else {
-      onChange({ target: { value: "" } } as React.ChangeEvent<HTMLInputElement>); // Handle case for clearing the date
     }
   };
 
   return (
-    <div className="mb-6 w-full relative">
-      {/* Floating Label */}
-      <label
-        className={`absolute transition-all duration-200 ${isFocused || value
-          ? "top-[-10px] left-1 text-xs  text-[#865F5D] bg-white px-1 opacity-100"
-          : "top-4 left-4 opacity-50"
-          }`}
-      >
+    <div className="mb-3 w-full">
+      <h1 className="inline-flex items-center text-xs font-medium my-3 text-yellow-800 mb-5">
         {label}
-      </label>
-      <Flatpickr
-        value={value ? [new Date(value)] : []}
-        onChange={handleDateChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(!value)}
-        required={required}
-        className={`block w-full border-2 border-amber-100 bg-white text-gray-700 leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl p-4 `}
-      />
+      </h1>
+      <div className="flex justify-between gap-2">
+        <SelectInput
+          label="Tanggal"
+          value={day}
+          onChange={(e) => {
+            setDay(e.target.value);
+            handleDateChange();
+          }}
+          options={getDayOptions()}
+        />
+
+        <SelectInput
+          label="Bulan"
+          value={month}
+          onChange={(e) => {
+            setMonth(e.target.value);
+            handleDateChange();
+          }}
+          options={monthNames}
+        />
+
+        <SelectInput
+          label="Tahun"
+          value={year}
+          onChange={(e) => {
+            setYear(e.target.value);
+            handleDateChange();
+          }}
+          options={yearOptions}
+        />
+      </div>
     </div>
   );
 };
