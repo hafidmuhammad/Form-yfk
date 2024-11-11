@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 
-interface SelectionButtonProps {
-  label?: string;
-  selectedLabel: string;
+interface SelectionButtonAddresProps {
+  label: string;
+  selectedLabel: string; // Label to show when selected, can also include color
   onClick: () => void;
-  leftLogo?: React.ReactNode;
-  rightLogo?: React.ReactNode;
-  selectedLabelColor?: string;
+  leftLogo?: React.ReactNode;  // Optional logo on the left
+  rightLogo?: React.ReactNode; // Optional logo on the right
+  selectedLabelColor?: string; // Optional prop for custom selected label color
 }
 
-const SelectionButton: React.FC<SelectionButtonProps> = ({
+const SelectionButtonAddres: React.FC<SelectionButtonAddresProps> = ({
   label,
   selectedLabel,
   onClick,
   leftLogo,
   rightLogo,
-  selectedLabelColor = "text-red-500",
+  selectedLabelColor = "text-red-500", // Default color for selectedLabel
 }) => {
   const [isSelected, setIsSelected] = useState(false);
 
@@ -41,9 +41,10 @@ const SelectionButton: React.FC<SelectionButtonProps> = ({
 
         {/* Label */}
         <span
-          className={`truncate text-base opacity-75 w-full text-left text-yellow-800`}
+          className={`truncate text-base opacity-75 w-full text-left ${!selectedLabel ? "text-red-500" : selectedLabelColor
+            }`}
         >
-          {isSelected ? selectedLabel : label}
+          {label}
         </span>
 
         {/* Right logo */}
@@ -57,4 +58,6 @@ const SelectionButton: React.FC<SelectionButtonProps> = ({
   );
 };
 
-export default SelectionButton;
+export default SelectionButtonAddres;
+
+

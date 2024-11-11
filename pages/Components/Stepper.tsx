@@ -49,15 +49,13 @@ const Stepper: React.FC = () => {
 
   return (
     <div className="flex flex-col flex-grow">
-      <Header prevStep={prevStep} progress={progress} />
+      <Header prevStep={prevStep} progress={progress} step={step} />
       <div className="container mx-auto p-4 flex flex-col items-center">
 
         <div className="rounded-lg p-4 w-full h-full md:w-3/4 lg:w-2/4">
           {renderStep()}
         </div>
       </div>
-
-
 
       <Footer />
 

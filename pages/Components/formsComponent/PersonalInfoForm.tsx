@@ -7,11 +7,12 @@ import { FormData } from "../FormContext";
 import GenderSelection from "../InputComponent/GenderSelection";
 import ConfirmModalPersonalInfo from "../modalComponent/ConfirmModalPersonalInfo";
 import DateInput from "../InputComponent/DateInput";
-import FormHeader from "../viewComponent/FormHeader"; 
+import FormHeader from "../viewComponent/FormHeader";
 
 interface Props {
   nextStep: () => void;
   updateFormData: (data: Partial<FormData>) => void;
+  step: number;
 }
 
 const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {

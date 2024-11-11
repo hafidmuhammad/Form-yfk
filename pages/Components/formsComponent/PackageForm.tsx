@@ -15,6 +15,7 @@ import FormHeader from "../viewComponent/FormHeader";
 import { IoIosArrowForward, IoIosMoon } from "react-icons/io";
 import { IoSunnySharp } from "react-icons/io5";
 import { ImSpoonKnife } from "react-icons/im";
+import SelectionButtonAddres from "../InputComponent/SelectionButtonAddres";
 
 
 interface Props {
@@ -92,14 +93,14 @@ const PackageForm: React.FC<Props> = ({ nextStep, prevStep, updateFormData }) =>
         <div className="mb-5 flex flex-col gap-4">
           <label className="block text-yellow-800 text-sm ">Alamat Pengiriman</label>
 
-          <SelectionButton
-            selectedLabel={daytimeAddressLunch}
+          <SelectionButtonAddres
+            selectedLabel={daytimeAddressLunch || "Lunch - Belum diisi"}
             label={"Lunch - Belum diisi"}
             selectedLabelColor="text-red-500"
             leftLogo={<IoSunnySharp />}
             onClick={() => setAddressModalOpenLunch(true)}
           />
-          <SelectionButton
+          <SelectionButtonAddres
             selectedLabel={daytimeAddressDinner}
             label={"Dinner - Belum diisi"}
             selectedLabelColor="text-red-500"

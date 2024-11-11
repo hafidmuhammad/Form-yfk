@@ -1,7 +1,17 @@
 import React from "react";
 import Image from "next/image";
 import logo from "../../public/Assets/yellow-fit-kitchen-dark-logo 1.png";
+import { BsFacebook, BsInstagram, BsTiktok, BsTwitter, BsWhatsapp, BsYoutube } from "react-icons/bs";
 
+
+const socialLinks = [
+  { icon: <BsInstagram />, url: "https://www.instagram.com" },
+  { icon: <BsFacebook />, url: "https://www.facebook.com" },
+  { icon: <BsWhatsapp />, url: "https://www.whatsapp.com" },
+  { icon: <BsTiktok />, url: "https://www.tiktok.com" },
+  { icon: <BsTwitter />, url: "https://www.twitter.com" },
+  { icon: <BsYoutube />, url: "https://www.youtube.com" },
+];
 const Footer: React.FC = () => {
   return (
     <footer className="bg-white text-black">
@@ -48,6 +58,13 @@ const Footer: React.FC = () => {
                   Privacy Policy
                 </a>
               </span>
+            </div>
+            <div className="flex items-start justify-start my-4 gap-6 text-gray-500">
+              {socialLinks.map(({ icon, url }, index) => (
+                <a key={index} href={url} target="_blank" rel="noopener noreferrer">
+                  {icon}
+                </a>
+              ))}
             </div>
           </div>
         </div>
