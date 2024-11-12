@@ -25,7 +25,7 @@ const SelectionGroup: React.FC<SelectionGroupProps> = ({ title, selectedValues, 
   };
 
   return (
-    <div className="p-4 mb-4 ">
+    <div className="p-4">
 
       <div className="flex flex-col">
         <div className="m-2">
@@ -38,7 +38,7 @@ const SelectionGroup: React.FC<SelectionGroupProps> = ({ title, selectedValues, 
           return (
             <label
               key={option.value}
-              className={`flex w-full mx-1 border-1 border-amber-100 text-[#865F5D] m-2 bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 hover:bg-amber-100 rounded-xl p-4 items-center py-3 px-3
+              className={`flex w-full mx-1 border-1 border-amber-100 text-[#865F5D] m-1 bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 hover:bg-amber-100 rounded-xl p-4 items-center py-3 px-3
                 ${isSelected ? 'bg-red-50 border-red-800' : 'border-amber-100'}
                 ${isSelected ? 'line-through text-red-500 bg-red-300' : ''}
                 border hover:border-red-500`}

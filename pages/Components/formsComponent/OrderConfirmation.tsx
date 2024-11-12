@@ -39,12 +39,14 @@ const OrderConfirmation: React.FC<Props> = ({ nextStep, prevStep, orderDetails }
             description="1 Paket"
             packageType="Monthly Lunch + Dinner"
             imageSrc="/Assets/image 16.png"
+            iconType="sun"
           />
           <ProductDetaiLayout
             title="WEIGHTLOSS"
             description="1 Paket"
             packageType="Monthly Lunch + Dinner"
             imageSrc="/Assets/image 16.png"
+            iconType="moon"
           />
         </div>
 

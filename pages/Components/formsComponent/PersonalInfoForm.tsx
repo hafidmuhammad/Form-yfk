@@ -12,7 +12,7 @@ import FormHeader from "../viewComponent/FormHeader";
 interface Props {
   nextStep: () => void;
   updateFormData: (data: Partial<FormData>) => void;
-  step: number;
+
 }
 
 const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {

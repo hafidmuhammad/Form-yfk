@@ -16,7 +16,6 @@ const SelectionButton: React.FC<SelectionButtonProps> = ({
   onClick,
   leftLogo,
   rightLogo,
-  selectedLabelColor = "text-red-500",
 }) => {
   const [isSelected, setIsSelected] = useState(false);
 

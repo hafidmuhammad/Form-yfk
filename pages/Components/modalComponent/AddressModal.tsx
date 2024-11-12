@@ -99,8 +99,8 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center pb-4 sm:pb-0">
-      <div
-        className="bg-[#F8EFE0] p-6 pb-8 rounded-lg shadow-lg max-w-md w-full h-[85vh] sm:h-[90vh] md:max-h-[75vh] overflow-y-auto flex flex-col">
+      <div className="bg-[#F8EFE0] p-6 pb-8 rounded-lg shadow-lg max-w-md w-full h-[100vh] sm:h-[90vh] md:max-h-[75vh] overflow-y-auto flex flex-col"
+      >
 
         <div className="flex justify-between items-center mb-4 h-[10%]">
           {/* This part will be hidden when showAddForm is true */}
@@ -138,8 +138,6 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
                   >
                     {address.label}, {address.province}, {address.city}, {address.district}, {address.village}, {address.postalCode}
                   </div>
-
-
 
                   {/* Tombol Edit dan Delete */}
                   <div className="flex items-center">

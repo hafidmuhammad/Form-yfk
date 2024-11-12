@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import SelectionGroup from "../InputComponent/SelectionGroup";
 import { requestOptions } from "../../data/requestOptions";
+import FormInput from "../InputComponent/FormInput";
+import FormButton from "../InputComponent/FormButton";
 
 interface RequestModalProps {
   isOpen: boolean;
@@ -45,10 +47,9 @@ const RequestModal: React.FC<RequestModalProps> = ({ isOpen, value, onClose, onS
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center pb-4 sm:pb-0">
-      <div
-        className="bg-[#F8EFE0] p-6 pb-8 rounded-lg shadow-lg max-w-md w-full h-[85vh] sm:h-[90vh] md:max-h-[75vh] overflow-y-auto flex flex-col"
+      <div className="bg-[#F8EFE0] p-6 pb-8 rounded-lg shadow-lg max-w-md w-full h-[100vh] sm:h-[90vh] md:max-h-[75vh] overflow-y-auto flex flex-col"
       >
-        <div className="flex justify-end items-center mb-4">
+        <div className="absolute top-0 right-0 p-4">
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             <AiOutlineClose className="text-xl" />
           </button>
@@ -117,12 +118,7 @@ const RequestModal: React.FC<RequestModalProps> = ({ isOpen, value, onClose, onS
 
         {/* Save button */}
         <div className="mt-6 flex justify-center">
-          <button
-            onClick={handleSave}
-            className="px-6 py-2 text-white bg-green-500 rounded-md shadow-md hover:bg-green-600 transition duration-200"
-          >
-            Save Request
-          </button>
+          <FormButton label="Save" onClick={handleSave} styleType="primary" />
         </div>
       </div>
     </div>

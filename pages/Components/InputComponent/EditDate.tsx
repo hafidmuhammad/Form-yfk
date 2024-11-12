@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
-import { id } from "date-fns/locale"; // Indonesian locale for date formatting
+import { id } from "date-fns/locale";
 
-interface StartDateInputProps {
+interface EditDateProps {
   label?: string;
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
 }
 
-const StartDateInput: React.FC<StartDateInputProps> = ({
+const EditDate: React.FC<EditDateProps> = ({
   label,
   value,
   onChange,
@@ -43,14 +43,11 @@ const StartDateInput: React.FC<StartDateInputProps> = ({
   // Set the default date to Monday, 11 November 2024
   const defaultDate = new Date("2024-11-11"); // Ensure it's a valid date object
 
-  // Set the minimum selectable date as today
-  const today = new Date(); // Today's date
+  // Set the minimum selectable date based on the value, or fallback to the default date if no value is given
+  const minSelectableDate = parseDate(value) || defaultDate;
 
   return (
-    <div className="w-full relative">
-      {/* Label */}
-      <label className="block text-yellow-800 text-sm">{label}</label>
-
+    <div className="w-full">
       {/* DatePicker component */}
       <DatePicker
         selected={parseDate(value) || defaultDate}
@@ -58,14 +55,13 @@ const StartDateInput: React.FC<StartDateInputProps> = ({
         dateFormat="eeee, dd MMMM yyyy"
         locale={id}
         required={required}
-        minDate={today}
-        className="block w-full border-2 border-amber-100 bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl p-4 cursor-pointer text-yellow-800"
-        wrapperClassName="w-full"
-
+        minDate={minSelectableDate}
+        className="leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 cursor-pointer text-yellow-800 text-xs w-full min-w-[200px]"
         calendarClassName="cursor-pointer"
       />
     </div>
+
   );
 };
 
-export default StartDateInput;
+export default EditDate;

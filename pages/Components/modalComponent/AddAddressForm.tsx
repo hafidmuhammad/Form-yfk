@@ -5,6 +5,7 @@ import SelectForm from "../InputComponent/SelectForm";
 
 // Mengimpor data dari file JSON
 import locationData from "../../data/location.json";
+import FormButton from "../InputComponent/FormButton";
 
 interface Address {
   label: string;
@@ -132,18 +133,8 @@ const AddAddressForm: React.FC<AddAddressFormProps> = ({
 
       </div>
       <div className="flex gap-2">
-        <button
-          className="mt-2 w-full p-3 bg-green-500 text-white rounded flex items-center justify-center hover:bg-green-600 transition"
-          onClick={handleAddAddress}
-        >
-          {editIndex !== null ? "Update Address" : "Add Address"}
-        </button>
-        <button
-          className="mt-2 w-full p-3 bg-gray-300 text-black rounded flex items-center justify-center hover:bg-gray-400 transition"
-          onClick={() => setShowAddForm(false)}
-        >
-          Cancel
-        </button>
+        <FormButton label={editIndex !== null ? "Update Address" : "Add Address"} onClick={handleAddAddress} styleType="primary" />
+        <FormButton label="Cancel" onClick={() => setShowAddForm(false)} styleType="secondary" />
       </div>
     </div>
   );

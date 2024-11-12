@@ -12,21 +12,7 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ prevStep, progress, step }) => {
   return (
     <div className="top-0 left-0 right-0 bg-[#FFD823]">
-      {/* <div className="flex items-center justify-between p-4">
-        <IoIosArrowBack
-          className="w-6 h-6 mr-2 cursor-pointer text-gray-700"
-          onClick={prevStep}
-        />
-        <h5 className="text-lg md:text-xl lg:text-2xl font-semibold text-center flex-1 text-gray-900">
-          Konfirmasi Pemesanan
-        </h5>
-        <img
-          src="https://customer.yellowfitkitchen.com/frontend/assets/logo/logoonly.png"
-          className="w-10 h-10 cursor-pointer"
-          alt="Yellow Fit Logo"
-        />
-      </div> */}
-      <div className="flex items-center p-6">
+      <div className="flex items-center p-4">
         {/* Back Arrow */}
         {step > 1 && (
           <div className="flex-none w-5">
@@ -42,8 +28,8 @@ const Header: React.FC<HeaderProps> = ({ prevStep, progress, step }) => {
           <Image
             src={logo}
             alt="Yellowfit Logo"
-            width={200}
-            height={200}
+            width={150}
+            height={150}
             className="mx-auto"
           />
         </div>

@@ -14,8 +14,11 @@ import StartDateInput from "../InputComponent/StartDateInput";
 import FormHeader from "../viewComponent/FormHeader";
 import { IoIosArrowForward, IoIosMoon } from "react-icons/io";
 import { IoSunnySharp } from "react-icons/io5";
-import { ImSpoonKnife } from "react-icons/im";
 import SelectionButtonAddres from "../InputComponent/SelectionButtonAddres";
+import { FaSpoon } from "react-icons/fa6";
+import { ImSpoonKnife } from "react-icons/im";
+import SelectForm from "../InputComponent/SelectForm";
+import SelectDiningEquipment from "../InputComponent/SelectDiningEquipment";
 
 
 interface Props {
@@ -32,6 +35,10 @@ const PackageForm: React.FC<Props> = ({ nextStep, prevStep, updateFormData }) =>
   const [isAddressModalOpenLunch, setAddressModalOpenLunch] = useState(false);
   const [isAddressModalOpenDinner, setAddressModalOpenDinner] = useState(false);
 
+  const equipmentOptions = [
+    { label: "Gunakan", value: "Gunakan" },
+    { label: "Tidak Menggunakan", value: "Tidak Menggunakan" },
+  ];
 
   const [diningEquipment, setDiningEquipment] = useState("");
 
@@ -67,9 +74,6 @@ const PackageForm: React.FC<Props> = ({ nextStep, prevStep, updateFormData }) =>
         />
 
       </div>
-
-
-
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -89,35 +93,31 @@ const PackageForm: React.FC<Props> = ({ nextStep, prevStep, updateFormData }) =>
           />
         </div>
 
-        {/* Start Date */}
         <div className="mb-5 flex flex-col gap-4">
           <label className="block text-yellow-800 text-sm ">Alamat Pengiriman</label>
 
           <SelectionButtonAddres
-            selectedLabel={daytimeAddressLunch || "Lunch - Belum diisi"}
+            selectedLabel={daytimeAddressLunch}
             label={"Lunch - Belum diisi"}
-            selectedLabelColor="text-red-500"
             leftLogo={<IoSunnySharp />}
             onClick={() => setAddressModalOpenLunch(true)}
           />
           <SelectionButtonAddres
             selectedLabel={daytimeAddressDinner}
             label={"Dinner - Belum diisi"}
-            selectedLabelColor="text-red-500"
             leftLogo={<IoIosMoon />}
             onClick={() => setAddressModalOpenDinner(true)}
           />
-
         </div>
-        {/* <ImSpoonKnife /> */}
+
 
         <div className="mb-5 flex flex-col gap-4">
           <label className="block text-yellow-800 text-sm ">Alat Makan</label>
-          <SelectionButton
-            selectedLabel={diningEquipment}
-            label={"Alat Makan"}
-            onClick={() => setDiningEquipmentModalOpen(true)}
-            leftLogo={<ImSpoonKnife />}
+          <SelectDiningEquipment
+            label="Alat Makan"
+            value={diningEquipment}
+            onChange={(e) => setDiningEquipment(e.target.value)}
+            options={equipmentOptions}
           />
         </div>
 
