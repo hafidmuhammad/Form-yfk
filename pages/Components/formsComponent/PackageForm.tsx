@@ -4,20 +4,13 @@ import { FormData } from "../FormContext";
 import RequestModal from "../modalComponent/RequestModal";
 import AddressModal from "../modalComponent/AddressModal";
 import DiningEquipmentModal from "../modalComponent/DiningEquipmentModal";
-import { MdOutlineRequestQuote } from "react-icons/md";
 import SelectionButton from "../InputComponent/SelectionButton";
-import FormInput from "../InputComponent/FormInput";
-import DateInput from "../InputComponent/DateInput";
-import Image from "next/image";
 import ProductLayout from "../viewComponent/ProductLayout";
 import StartDateInput from "../InputComponent/StartDateInput";
 import FormHeader from "../viewComponent/FormHeader";
 import { IoIosArrowForward, IoIosMoon } from "react-icons/io";
 import { IoSunnySharp } from "react-icons/io5";
 import SelectionButtonAddres from "../InputComponent/SelectionButtonAddres";
-import { FaSpoon } from "react-icons/fa6";
-import { ImSpoonKnife } from "react-icons/im";
-import SelectForm from "../InputComponent/SelectForm";
 import SelectDiningEquipment from "../InputComponent/SelectDiningEquipment";
 
 
@@ -119,11 +112,6 @@ const PackageForm: React.FC<Props> = ({ nextStep, prevStep, updateFormData }) =>
             onChange={(e) => setDiningEquipment(e.target.value)}
             options={equipmentOptions}
           />
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex mt-4 space-x-4">
-          <FormButton label="Lanjutkan" type="submit" styleType="primary" />
         </div>
 
         {/* Modals */}

@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import orderDataJson from "../../data/orderData.json";
+import orderData from "../../data/orderData.json";
+// Import AddressModal component
 import ProductImage from "../../../public/Assets/bibimbap.png";
 import StartDateInput from "../InputComponent/StartDateInput";
 import AddressModal from "../modalComponent/AddressModal";
-import { FaCalendarAlt, FaCheck, FaMapMarkerAlt, FaMoon, FaSun } from "react-icons/fa";
-import ButtonEditAddres from "../InputComponent/ButtonEditAddres";
+import { FaMoon, FaSun } from "react-icons/fa";
+// import SelectionButtonA from "../InputComponent/SelectionButton";
 import EditDate from "../InputComponent/EditDate";
-import { ImSpoonKnife } from "react-icons/im";
-import { MonthlyOrder } from "@/pages/type/order";
+import ButtonEditAddres from "../InputComponent/ButtonEditAddres";
 
-interface ProductDetaiLayoutProps {
+interface ProductDetaiPaymentLayoutProps {
   title: string;
   description: string;
   packageType: string;
@@ -19,9 +19,24 @@ interface ProductDetaiLayoutProps {
   iconType: 'sun' | 'moon';
 }
 
-const orderData: MonthlyOrder = orderDataJson as MonthlyOrder;
+interface OrderDetail {
+  date: string;
+  address: string;
+  request: string;
+  day: string;
+}
 
-const ProductDetaiLayout: React.FC<ProductDetaiLayoutProps> = ({
+interface WeeklyOrder {
+  week: string;
+  details: OrderDetail[];
+}
+
+interface MonthlyOrder {
+  month: string;
+  weeks: WeeklyOrder[];
+}
+
+const ProductDetaiPaymentLayout: React.FC<ProductDetaiPaymentLayoutProps> = ({
   title,
   description,
   packageType,
@@ -32,7 +47,7 @@ const ProductDetaiLayout: React.FC<ProductDetaiLayoutProps> = ({
   const [openWeekIndex, setOpenWeekIndex] = useState<number | null>(null);
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<string>("");  // State for the selected date
   const [selectedAddress, setSelectedAddress] = useState<string>("");
 
   const toggleMonth = (index: number) => {
@@ -44,7 +59,7 @@ const ProductDetaiLayout: React.FC<ProductDetaiLayoutProps> = ({
   };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedDate(e.target.value);
+    setSelectedDate(e.target.value);  // Update the date state
   };
 
   const handleAddressSave = (newAddress: string) => {
@@ -54,30 +69,19 @@ const ProductDetaiLayout: React.FC<ProductDetaiLayoutProps> = ({
   return (
     <div className="mb-6 border-2 border-amber-100 bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl cursor-pointer text-yellow-800">
       <div className="relative flex justify-between items-center">
-        <div
-          className="relative flex items-center bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl cursor-pointer text-yellow-800"
-          style={{ width: "100%", maxWidth: "312px", height: "90px" }}
-        >
-          {/* Image Column */}
-          <div className="w-1/3 flex justify-center">
-            <div className="flex items-center justify-center">
-              <Image
-                src={imageSrc}
-                alt="Product Image"
-                width={69}
-                height={64}
-                className="rounded-full"
-              />
-            </div>
-          </div>
+        {/* Left - Icon (Moon or Sun) */}
 
+        {/* Right - Title, Description, and Package Type */}
+        <div className="relative flex items-center bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 rounded-xl cursor-pointer text-yellow-800"
+          style={{ width: "100%", maxWidth: "312px", height: "90px" }}>
           {/* Text Column */}
-          <div className="w-2/3 p-2">
+          <div className="w-full p-3">
             <h2 className="text-base md:text-lg text-gray-800">{title}</h2>
             <p className="text-xs md:text-sm text-gray-600">{description}</p>
             <p className="text-xs text-gray-600">{packageType}</p>
           </div>
         </div>
+
         <div className="flex items-start justify-start p-4 m-5">
           {iconType === 'moon' ? (
             <FaMoon className="text-blue-400 text-xl" />
@@ -87,9 +91,8 @@ const ProductDetaiLayout: React.FC<ProductDetaiLayoutProps> = ({
         </div>
       </div>
 
-      {/* Order Details */}
-      <div className="p-3">
-        {[orderData].map((monthData, monthIndex) => (
+      {/* <div className="p-3">
+        {orderData.map((monthData, monthIndex) => (
           <div key={monthIndex}>
             <div
               className="flex justify-between items-center p-4 cursor-pointer bg-[#FFD823] hover:bg-yellow-400 transition-all duration-300 ease-in-out rounded-lg"
@@ -103,54 +106,42 @@ const ProductDetaiLayout: React.FC<ProductDetaiLayoutProps> = ({
                 {monthData.weeks.map((weekData, weekIndex) => (
                   <div key={weekIndex}>
                     <div
-                      className="flex justify-between items-center p-3 cursor-pointer border-b border-yellow-800"
+                      className="flex justify-between items-center p-3 cursor-pointer border-b"
                       onClick={() => toggleWeek(weekIndex)}
                     >
                       <span className="font-semibold text-xs">{weekData.week}</span>
                       <span>{openWeekIndex === weekIndex ? <IoIosArrowUp /> : <IoIosArrowDown />}</span>
                     </div>
                     {openWeekIndex === weekIndex && (
-                      <div className="transition-all duration-300 ease-in-out mt-1 ">
+                      <div className="transition-all duration-300 ease-in-out mt-1">
                         {weekData.details.map((detail, detailIndex) => (
-                          <div key={detailIndex} className="w-full text-sm flex flex-col mb-4 ">
-                            <div className="flex items-start gap-4 p-3">
-                              {/* Checkmark Circle on the left */}
-                              <div className="rounded-full p-2 bg-green-900">
-                                {/* <FaCheck className="text-white text-sm" /> */}
-                                <ImSpoonKnife className="text-white text-sm" />
-                              </div>
+                          <div key={detailIndex} className="w-full text-sm flex items-center mb-3">
 
-                              {/* Right side: Date and Meal Info */}
-                              <div className="flex flex-col w-full">
+                            <div className="w-[calc(100%-40px)] flex flex-col justify-center h-full">
+                              <div className="flex flex-col text-left gap-1.5 px-3">
                                 <EditDate
                                   value={selectedDate || detail.date}
                                   onChange={handleDateChange}
+                                  disabled={true}
                                 />
-                                {/* Meal Details */}
-                                {detail.meals.map((meal, mealIndex) => (
-                                  <div key={mealIndex} className="flex flex-col gap-4 mt-2 border-b p-2 border-yellow-800">
-                                    {/* Meal Time and Request Info */}
-                                    <div className="grid grid-cols-1 gap-2">
-                                      <div className="flex gap-2 h-2">
-                                        <div className={`text-[10px] text-black text-center flex items-center justify-center p-2 rounded-full max-w-max ${meal.time.toLowerCase() === "dinner" ? "bg-purple-500 text-white" : "bg-yellow-200 text-yellow-800"
-                                          }`}>
-                                          {meal.time.toLowerCase() === "lunch" ? "Lunch" :
-                                            meal.time.toLowerCase() === "dinner" ? "Dinner" : "Waktu Makan Tidak Diketahui"}
-                                        </div>
-
-                                        <div className="text-[10px] text-black rounded-full bg-green-200 max-w-max text-center flex items-center justify-center p-2">
-                                          {meal.request || "Tidak ada permintaan Khusus"}
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <ButtonEditAddres
-                                      selectedLabel={meal.address}
-                                      label={meal.address}
-                                      onClick={() => setIsAddressModalOpen(true)}
-                                    />
-                                  </div>
-                                ))}
+                                <ButtonEditAddres
+                                  selectedLabel={detail.address}
+                                  label={detail.address}
+                                  onClick={() => setIsAddressModalOpen(true)}
+                                  disabled={true}
+                                />
+                                <label className="border-2 border-yellow-800/20 text-[10px] p-1 text-yellow-800 rounded-md bg-yellow-50">
+                                  Tidak ada permintaan Khusus
+                                </label>
                               </div>
+                            </div>
+
+                            <div className="w-1/16 h-full flex items-start justify-end">
+                              {iconType === 'moon' ? (
+                                <FaMoon className="text-blue-400 text-base" />
+                              ) : (
+                                <FaSun className="text-yellow-400 text-base" />
+                              )}
                             </div>
                           </div>
                         ))}
@@ -162,9 +153,8 @@ const ProductDetaiLayout: React.FC<ProductDetaiLayoutProps> = ({
             )}
           </div>
         ))}
-      </div>
+      </div> */}
 
-      {/* StartDateInput Modal */}
       {isDateModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -190,7 +180,13 @@ const ProductDetaiLayout: React.FC<ProductDetaiLayoutProps> = ({
         />
       )}
     </div>
+
+
+
   );
 };
 
-export default ProductDetaiLayout;
+export default ProductDetaiPaymentLayout;
+
+
+

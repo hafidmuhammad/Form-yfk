@@ -49,7 +49,9 @@ const StartDateInput: React.FC<StartDateInputProps> = ({
   return (
     <div className="w-full relative">
       {/* Label */}
-      <label className="block text-yellow-800 text-sm">{label}</label>
+      <h1 className="items-center font-medium my-2 text-yellow-800 mb-3 block text-sm">
+        {label}
+      </h1>
 
       {/* DatePicker component */}
       <DatePicker

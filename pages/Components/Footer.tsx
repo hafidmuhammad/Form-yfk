@@ -14,7 +14,7 @@ const socialLinks = [
 ];
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-white text-black">
+    <footer className="bg-white text-black my-auto">
       <div className="container flex justify-center items-center">
         <div className="mb-2 items-start">
           <Image

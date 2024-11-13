@@ -1,118 +1,107 @@
-// components/forms/OrderDetail.tsx
-import React from "react";
+import React, { useState } from "react";
 import FormButton from "../InputComponent/FormButton";
+import FormHeader from "../viewComponent/FormHeader";
+import ProductDetaiLayout from "../viewComponent/ProductDetaiLayout";
+import ProductDetaiPaymentLayout from "../viewComponent/ProductDetaiPaymentLayout";
+import MessageModal from "../modalComponent/Modalmessage";
+
 
 interface Props {
   nextStep: () => void;
   prevStep: () => void;
+  orderDetails: {
+    name: string;
+    email: string;
+    date: string;
+    startDate: string;
+    request: string;
+    daytimeAddressLunch: string;
+    daytimeAddressDinner: string;
+    nighttimeAddress: string;
+    diningEquipment: string;
+  };
 }
 
 const OrderDetail: React.FC<Props> = ({ nextStep, prevStep }) => {
-  const totalPayment = 1310112;
-  const invoiceNumber = "2411001000993";
-  const accountNumber = "6840866911";
-  const bankName = "BCA";
-  const accountName = "PT YellowFit Group Indonesia";
+  const [isCheckedRequest, setIsCheckedRequest] = useState(false);
+  const [isCheckedOrder, setIsCheckedOrder] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(`Rp ${totalPayment.toLocaleString()}`);
-    alert("Jumlah pembayaran telah disalin ke clipboard.");
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isCheckedRequest && isCheckedOrder) {
+      nextStep();
+    } else {
+      setIsModalOpen(true); // Open modal if conditions are not met
+    }
   };
 
   return (
-    <div className="max-w-md mx-auto p-6">
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Detail Order</h2>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <FormHeader
+          title="Konfirmasi Pembayaran"
+          description="Berikut adalah detail pemesanan yang telah kamu pilih. Periksa dengan teliti sebelum melanjutkan ke pembayaran."
+        />
 
-      <div className="mb-8">
-        <div className="text-lg font-semibold text-gray-700 mb-2">Total Pembayaran Sebesar:</div>
-        <div className="rounded-xl p-6 bg-white shadow-lg grid grid-cols-5 items-center">
-          <div className="col-span-4 text-blue-600 font-extrabold text-3xl text-center tracking-wide">
-            Rp {totalPayment.toLocaleString()}
+        <div className="container mx-auto">
+          <ProductDetaiPaymentLayout
+            title="WEIGHTLOSS"
+            description="1 Paket"
+            packageType="Monthly Lunch + Dinner"
+            imageSrc="/Assets/image 16.png"
+            iconType="sun"
+          />
+          <ProductDetaiPaymentLayout
+            title="WEIGHTLOSS"
+            description="1 Paket"
+            packageType="Monthly Lunch + Dinner"
+            imageSrc="/Assets/image 16.png"
+            iconType="moon"
+          />
+        </div>
+
+        {/* Checkbox Section */}
+        <div className="flex flex-col my-2 space-y-1"> {/* Reduced space between checkboxes */}
+          <div className="flex items-center text-xs font-normal  p-2 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-100">
+            <input
+              type="checkbox"
+              checked={isCheckedRequest}
+              onChange={() => setIsCheckedRequest(!isCheckedRequest)}
+              className="h-4 w-4 border-gray-400 rounded-full accent-yellow-800  mr-3"
+            />
+            <span className="text-xs">
+              Saya menyatakan bahwa special request, jadwal, dan alamat pengiriman sudah sesuai.
+              <span className="text-red-500">*</span> {/* Red asterisk to indicate required field */}
+            </span>
           </div>
-          <button
-            onClick={copyToClipboard}
-            className="flex items-center justify-center col-span-1 bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out w-full shadow-md hover:shadow-lg"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-1"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M10 3a1 1 0 011 1v7a1 1 0 01-2 0V4a1 1 0 011-1z" />
-              <path fillRule="evenodd" d="M3 10a7 7 0 0114 0v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7z" clipRule="evenodd" />
-            </svg>
-            Salin
-          </button>
+
+          <label className="flex items-center text-xs font-normal  p-2 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-100">
+            <input
+              type="checkbox"
+              checked={isCheckedOrder}
+              onChange={() => setIsCheckedOrder(!isCheckedOrder)}
+              className="h-4 w-4 border-gray-400 rounded-full accent-yellow-800  mr-3"
+            />
+            <span className="text-xs">
+              Saya menyatakan bahwa pesanan saya sudah sesuai.
+              <span className="text-red-500">*</span> {/* Red asterisk to indicate required field */}
+            </span>
+          </label>
         </div>
       </div>
 
-      <div className="mb-6">
-        <div className="p-4 bg-white rounded-xl shadow-md">
-          <table className="min-w-full border-collapse">
-            <tbody className="divide-y divide-gray-200">
-              <tr className="hover:bg-gray-50">
-                <td className="px-4 py-2 text-sm text-gray-600">
-                  <strong className="text-gray-800">Nomor Invoice</strong>
-                </td>
-                <td className="px-4 py-2 text-sm text-gray-600 flex items-center justify-between">
-                  <span>{invoiceNumber}</span>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(invoiceNumber);
-                      alert("Nomor Invoice telah disalin ke clipboard.");
-                    }}
-                    className="ml-2 bg-transparent hover:bg-yellow-500 text-yellow-700 font-semibold hover:text-white py-1 px-3 border border-yellow-500 hover:border-transparent rounded transition-all duration-300 ease-in-out"
-                  >
-                    Salin
-                  </button>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-4 py-2 text-sm text-gray-600">
-                  <strong className="text-gray-800">Nomor Rekening</strong>
-                </td>
-                <td className="px-4 py-2 text-sm text-gray-600 flex items-center justify-between">
-                  <span>{accountNumber}</span>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(accountNumber);
-                      alert("Nomor Rekening telah disalin ke clipboard.");
-                    }}
-                    className="ml-2 bg-transparent hover:bg-yellow-500 text-yellow-700 font-semibold hover:text-white py-1 px-3 border border-yellow-500 hover:border-transparent rounded transition-all duration-300 ease-in-out"
-                  >
-                    Salin
-                  </button>
-                </td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-4 py-2 text-sm text-gray-600">
-                  <strong className="text-gray-800">Bank</strong>
-                </td>
-                <td className="px-4 py-2 text-sm text-gray-600">{bankName}</td>
-              </tr>
-              <tr className="hover:bg-gray-50">
-                <td className="px-4 py-2 text-sm text-gray-600">
-                  <strong className="text-gray-800">Atas Nama</strong>
-                </td>
-                <td className="px-4 py-2 text-sm text-gray-600">{accountName}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div className="mt-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700" role="alert">
-          <p className="font-bold">Peringatan!</p>
-          <p>*Nomor invoice wajib disalin pada berita acara.</p>
-        </div>
-      </div>
-
-      <div className="flex justify-between mt-4 gap-4">
-        <FormButton label="Tidak" onClick={prevStep} styleType="secondary" />
-        <FormButton label="Lanjutkan Pembelian" onClick={nextStep} type="submit" styleType="primary" />
-      </div>
-    </div>
-
+      {/* Modal for confirmation */}
+      {isModalOpen && (
+        <MessageModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title="Periksa Kembali"
+          content="Harap pastikan Anda telah mencentang semua persyaratan sebelum melanjutkan."
+          onConfirm={() => setIsModalOpen(false)}
+        />
+      )}
+    </form>
   );
 };
 

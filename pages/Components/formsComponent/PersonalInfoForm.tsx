@@ -5,9 +5,9 @@ import FormInput from "../InputComponent/FormInput";
 import FormButton from "../InputComponent/FormButton";
 import { FormData } from "../FormContext";
 import GenderSelection from "../InputComponent/GenderSelection";
-import ConfirmModalPersonalInfo from "../modalComponent/ConfirmModalPersonalInfo";
 import DateInput from "../InputComponent/DateInput";
 import FormHeader from "../viewComponent/FormHeader";
+import MessageModal from "../modalComponent/Modalmessage";
 
 interface Props {
   nextStep: () => void;
@@ -81,7 +81,7 @@ const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {
 
         <div className="mb-1">
           <DateInput
-            label="Select Date"
+            label="Tanggal Lahir"
             value={dateOfBirth}
             onChange={(e) => setDateOfBirth(e.target.value)}
             required
@@ -91,14 +91,16 @@ const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {
         <div className="mb-0">
           <GenderSelection selectedGender={gender} onChange={setGender} />
         </div>
-        <FormButton label="Lanjutkan" type="submit" styleType="primary" />
       </form>
 
-      <ConfirmModalPersonalInfo
+      <MessageModal
         isOpen={isModalOpen}
+        onClose={handleCancel}
+        title="Periksa Kembali"
+        content="Harap pastikan Anda telah Mengisi data dengan benar."
         onConfirm={handleConfirm}
-        onCancel={handleCancel}
       />
+
     </>
   );
 };

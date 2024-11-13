@@ -99,22 +99,32 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center pb-4 sm:pb-0">
-      <div className="bg-[#F8EFE0] p-6 pb-8 rounded-lg shadow-lg max-w-md w-full h-[100vh] sm:h-[90vh] md:max-h-[75vh] overflow-y-auto flex flex-col"
-      >
-
+      <div className="bg-[#F8EFE0] p-6 pb-8 rounded-lg shadow-lg max-w-md w-full h-[100vh] sm:h-[90vh] md:max-h-[75vh] overflow-y-auto flex flex-col">
+        {/* Header */}
         <div className="flex justify-between items-center mb-4 h-[10%]">
-          {/* This part will be hidden when showAddForm is true */}
-          {!showAddForm && (
-            <div className="m-2">
-              <div className="font-bold text-[#865F5D] text-2xl">Pilih alamat Pengiriman</div>
-              <span className="font-normal text-xs text-[#865F5D]">Pilih Satu Untuk Pengiriman</span>
-            </div>
-          )}
-          {/* Close button to close the modal */}
-          <button onClick={() => { setShowAddForm(false); onClose(); }} className="text-gray-500 hover:text-gray-700">
-            <AiOutlineClose className="text-base" />
+          <div className="m-2">
+            <h2 className="font-bold text-[#865F5D] text-xl">
+              {showAddForm ? (editIndex !== null ? "Edit Alamat" : "Menambahkan Alamat Baru") : "Pilih Alamat Pengiriman"}
+            </h2>
+            <span className="font-normal text-xs text-[#865F5D]">
+              {showAddForm
+                ? (editIndex !== null
+                  ? "Anda sedang mengedit alamat yang ada pilih."
+                  : "Isi alamat baru yang ingin Anda tambahkan.")
+                : "Pilih Satu Untuk Pengiriman"}
+            </span>
+          </div>
+          <button
+            onClick={onClose}
+            className=" text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
+          >
+            <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span className="sr-only">Tutup modal</span>
           </button>
         </div>
+
 
         {showAddForm ? (
           <AddAddressForm
@@ -126,53 +136,58 @@ const AddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose, onSave }) 
           />
         ) : (
           <>
-            {/* Scrollable address list with overflow */}
-            <div className="flex flex-col overflow-y-auto h-[85%] gap-1">
+            {/* Address List */}
+            <div className="flex flex-col overflow-y-auto h-[85%] gap-2">
               {addresses.map((address, index) => (
-                <div key={index}
-                  className={`flex justify-between mx-1 border-1 border-amber-100 text-[#865F5D] bg-white leading-tight transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 hover:bg-amber-100 rounded-xl p-4 items-center py-3 px-3 ${selectedAddressIndex === index ? 'bg-red-50 border-red-800' : 'border-amber-100'} ${selectedAddressIndex === index ? 'line-through text-red-500 bg-red-300' : ''} border hover:border-red-500`}>
+                <div
+                  key={index}
+                  className={`flex justify-between items-center mx-1 px-3 py-3 bg-white rounded-xl shadow transition duration-150 ease-in-out ${selectedAddressIndex === index
+                    ? 'bg-red-50 border border-red-300 text-red-500'
+                    : 'border border-amber-100 text-[#865F5D]'
+                    } hover:bg-amber-100 hover:shadow-md`}
+                >
                   <div
                     onClick={() => handleSave(address)}
                     onDoubleClick={() => handleSelectAddress(index)}
-                    className="cursor-pointer overflow-hidden text-ellipsis block max-h-5 leading-tight"
+                    className="cursor-pointer overflow-hidden text-ellipsis leading-tight max-w-[70%]"
                   >
                     {address.label}, {address.province}, {address.city}, {address.district}, {address.village}, {address.postalCode}
                   </div>
 
-                  {/* Tombol Edit dan Delete */}
-                  <div className="flex items-center">
+                  {/* Edit and Delete Buttons */}
+                  <div className="flex items-center gap-2">
                     <button
-                      onClick={(e) => handleEditAddress(index, e)} // Pass event to stop propagation
+                      onClick={(e) => handleEditAddress(index, e)}
                       className="text-blue-500 hover:text-blue-700 hover:bg-blue-100 p-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
                     >
                       <FaEdit className="text-xl" />
                     </button>
                     <button
-                      onClick={(e) => handleDeleteAddress(index, e)} // Pass event to stop propagation
+                      onClick={(e) => handleDeleteAddress(index, e)}
                       className="text-red-500 hover:text-red-700 hover:bg-red-100 p-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
                     >
                       <FaTrash className="text-xl" />
                     </button>
                   </div>
-
                 </div>
               ))}
             </div>
 
-            {/* Add Address button */}
+            {/* Add Address Button */}
             <div className="flex justify-end h-[5%] mt-4">
               <button
-                className="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center hover:bg-blue-600 transition"
+                className="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center hover:bg-blue-600 transition shadow-lg hover:shadow-xl transform hover:scale-105"
                 onClick={() => setShowAddForm(true)}
               >
-                <FaPlus className="text-xl" />  {/* Adjust the size of the icon */}
+                <FaPlus className="text-xl" />
               </button>
             </div>
-
           </>
         )}
       </div>
     </div>
+
+
 
   );
 };

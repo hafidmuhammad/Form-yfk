@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { FaPlus } from "react-icons/fa";
+import React, { useState } from "react";
 import FormInput from "../InputComponent/FormInput";
 import SelectForm from "../InputComponent/SelectForm";
-
-// Mengimpor data dari file JSON
 import locationData from "../../data/location.json";
 import FormButton from "../InputComponent/FormButton";
 
@@ -64,10 +61,7 @@ const AddAddressForm: React.FC<AddAddressFormProps> = ({
   };
 
   return (
-    <div className="mb-4">
-      <h2 className="mb-2 text-lg font-bold">
-        {editIndex !== null ? "Edit Alamat" : "Menambahkan Alamat Baru"}
-      </h2>
+    <div>
       <div className="grid grid-cols-1 gap-3">
         <FormInput
           label="Label"
@@ -119,11 +113,6 @@ const AddAddressForm: React.FC<AddAddressFormProps> = ({
               : []
           }
         />
-        {/* <FormInput
-          label="Kode Pos"
-          value={newAddress.postalCode}
-          readOnly
-        /> */}
         <FormInput
           label="Kode Pos"
           value={newAddress.postalCode}
@@ -132,9 +121,9 @@ const AddAddressForm: React.FC<AddAddressFormProps> = ({
         />
 
       </div>
-      <div className="flex gap-2">
-        <FormButton label={editIndex !== null ? "Update Address" : "Add Address"} onClick={handleAddAddress} styleType="primary" />
+      <div className="flex gap-3">
         <FormButton label="Cancel" onClick={() => setShowAddForm(false)} styleType="secondary" />
+        <FormButton label={editIndex !== null ? "Update Address" : "Add Address"} onClick={handleAddAddress} styleType="primary" />
       </div>
     </div>
   );

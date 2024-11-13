@@ -49,8 +49,6 @@ const OrderConfirmation: React.FC<Props> = ({ nextStep, prevStep, orderDetails }
             iconType="moon"
           />
         </div>
-
-        <FormButton label="Lanjutkan" type="submit" styleType="primary" />
       </div>
     </form>
   );

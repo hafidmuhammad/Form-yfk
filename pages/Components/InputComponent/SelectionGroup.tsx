@@ -29,7 +29,7 @@ const SelectionGroup: React.FC<SelectionGroupProps> = ({ title, selectedValues, 
 
       <div className="flex flex-col">
         <div className="m-2">
-          <div className="font-bold text-[#865F5D] text-2xl">{title}</div>
+          <div className="font-semibold text-[#865F5D] text-xl">{title}</div>
           <span className="font-normal text-xs text-[#865F5D]">Pilih semua yang tidak ingin Anda Suka</span>
         </div>
 
