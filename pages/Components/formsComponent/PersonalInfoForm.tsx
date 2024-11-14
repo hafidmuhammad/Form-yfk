@@ -10,12 +10,11 @@ import FormHeader from "../viewComponent/FormHeader";
 import MessageModal from "../modalComponent/Modalmessage";
 
 interface Props {
-  nextStep: () => void;
   updateFormData: (data: Partial<FormData>) => void;
 
 }
 
-const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {
+const PersonalInfoForm: React.FC<Props> = ({ updateFormData }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
@@ -37,7 +36,6 @@ const PersonalInfoForm: React.FC<Props> = ({ nextStep, updateFormData }) => {
       dateOfBirth,
     });
     setIsModalOpen(false);
-    nextStep();
   };
 
   const handleCancel = () => {

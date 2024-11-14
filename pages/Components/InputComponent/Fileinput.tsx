@@ -15,6 +15,7 @@ const FileInput: React.FC<FileInputProps> = ({
 }) => {
   const [file, setFile] = useState<File | null>(null);  // Pastikan tipe File | null
   const [errors, setErrors] = useState<{ transferProof?: string }>({});
+  const [filePreview, setFilePreview] = useState<string | null>(null); // State untuk preview gambar
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,8 +23,13 @@ const FileInput: React.FC<FileInputProps> = ({
     if (selectedFile) {
       setFile(selectedFile);
       setErrors({}); // Clear any previous errors
+
+      // Membuat preview gambar
+      const objectURL = URL.createObjectURL(selectedFile);
+      setFilePreview(objectURL);
     } else {
       setFile(null);
+      setFilePreview(null);
     }
     onChange(e); // Panggil onChange yang diterima sebagai prop
   };
@@ -35,6 +41,10 @@ const FileInput: React.FC<FileInputProps> = ({
       const selectedFile = files[0];
       setFile(selectedFile);
       setErrors({}); // Clear any previous errors
+
+      // Membuat preview gambar
+      const objectURL = URL.createObjectURL(selectedFile);
+      setFilePreview(objectURL);
 
       // Membuat event Change yang valid untuk input file
       const event = {
@@ -49,6 +59,11 @@ const FileInput: React.FC<FileInputProps> = ({
     e.preventDefault(); // Membolehkan drop
   };
 
+  // Fungsi untuk memotong nama file jika terlalu panjang
+  const truncateFileName = (fileName: string, maxLength: number = 20) => {
+    return fileName.length > maxLength ? fileName.substring(0, maxLength) + "..." : fileName;
+  };
+
   return (
     <div className="w-full">
       <h1 className="items-center font-medium my-2 text-yellow-800 mb-3 block text-sm">{label}</h1>
@@ -61,12 +76,20 @@ const FileInput: React.FC<FileInputProps> = ({
         onClick={() => fileInputRef.current?.click()} // Klik untuk membuka input file
       >
         {file ? (
-          <p className="text-gray-600">{file.name}</p>
+          <div className="mt-4 text-center">
+            {filePreview && (
+              <img
+                src={filePreview}
+                alt="Preview"
+                className="w-24 h-24 object-cover rounded-md mb-2" // Menggunakan object-cover untuk menyesuaikan gambar dengan ukuran komponen
+              />
+            )}
+            <p className="text-gray-600">{truncateFileName(file?.name)}</p> {/* Nama file yang dipotong jika terlalu panjang */}
+          </div>
         ) : (
           <p className="text-gray-400 text-center">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
         )}
       </div>
-
 
       {/* Input File */}
       <input

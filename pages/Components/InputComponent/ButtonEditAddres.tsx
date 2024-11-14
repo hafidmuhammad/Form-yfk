@@ -32,10 +32,12 @@ const ButtonEditAddres: React.FC<ButtonEditAddresProps> = ({
         {isSelected ? selectedLabel : label}
       </span>
 
-      <span className="text-yellow-800 cursor-pointer">
-        <FaEdit />
-      </span>
-
+      {/* Show FaEdit icon only if not disabled */}
+      {!disabled && (
+        <span className="text-yellow-800 cursor-pointer">
+          <FaEdit />
+        </span>
+      )}
     </div>
   );
 };

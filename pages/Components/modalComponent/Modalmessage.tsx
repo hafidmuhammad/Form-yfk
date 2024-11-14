@@ -1,7 +1,6 @@
 import React from "react";
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
 import { motion } from "framer-motion";
-import FormButton from "../InputComponent/FormButton";
 
 interface MessageModalProps {
   isOpen: boolean;
@@ -13,6 +12,9 @@ interface MessageModalProps {
 
 const MessageModal: React.FC<MessageModalProps> = ({ isOpen, onClose, title, content, onConfirm }) => {
   if (!isOpen) return null;
+
+  // Tentukan apakah pesan khusus muncul
+  const isSpecialContent = content === "Harap ceklis terlebih dahulu untuk melanjutkan.";
 
   return (
     <motion.div
@@ -74,6 +76,7 @@ const MessageModal: React.FC<MessageModalProps> = ({ isOpen, onClose, title, con
           {content}
         </motion.p>
 
+        {/* Tombol hanya akan ditampilkan jika bukan pesan khusus */}
         <motion.div
           className="flex justify-center mt-4 gap-3"
           initial={{ opacity: 0 }}
@@ -86,12 +89,14 @@ const MessageModal: React.FC<MessageModalProps> = ({ isOpen, onClose, title, con
           >
             Tidak, batalkan
           </button>
-          <button
-            onClick={onConfirm}
-            className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-          >
-            Ya, saya yakin
-          </button>
+          {!isSpecialContent && (
+            <button
+              onClick={onConfirm}
+              className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+            >
+              Ya, saya yakin
+            </button>
+          )}
         </motion.div>
       </motion.div>
     </motion.div>

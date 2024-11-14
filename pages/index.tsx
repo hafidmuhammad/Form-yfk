@@ -1,5 +1,5 @@
-import Header from "./Components/Header";
-import Stepper from "./Components/Stepper";
+import Header from "./components/Header";
+import Stepper from "./components/Stepper";
 
 export default function Home() {
   return (

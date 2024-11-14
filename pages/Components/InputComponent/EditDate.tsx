@@ -53,14 +53,17 @@ const EditDate: React.FC<EditDateProps> = ({
         locale={id}
         required={required}
         minDate={minSelectableDate}
-        className="leading-tight font-semibold transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 cursor-pointer text-yellow-800 text-xs sm:text-sm lg:text-base w-full min-w-[200px] sm:min-w-[250px] md:min-w-[300px] mb-0 bg-transparent"
+        className="leading-tight font-semibold transition duration-150 ease-in-out focus:border-amber-200 focus:outline-none focus:ring-amber-200 cursor-pointer text-yellow-800 text-xs sm:text-sm lg:text-base w-full min-w-[170px] sm:min-w-[250px] md:min-w-[220px] mb-0 bg-transparent"
         calendarClassName="cursor-pointer"
         disabled={disabled}
       />
-      {/* Edit icon */}
-      <span className="text-yellow-800 cursor-pointer">
-        <FaEdit />
-      </span>
+
+      {/* Show FaEdit icon only if not disabled */}
+      {!disabled && (
+        <span className="text-yellow-800 cursor-pointer">
+          <FaEdit />
+        </span>
+      )}
     </div>
   );
 };

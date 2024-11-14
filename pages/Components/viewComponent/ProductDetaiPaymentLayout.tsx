@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import orderData from "../../data/orderData.json";
-// Import AddressModal component
 import ProductImage from "../../../public/Assets/bibimbap.png";
 import StartDateInput from "../InputComponent/StartDateInput";
 import AddressModal from "../modalComponent/AddressModal";
 import { FaMoon, FaSun } from "react-icons/fa";
-// import SelectionButtonA from "../InputComponent/SelectionButton";
 import EditDate from "../InputComponent/EditDate";
 import ButtonEditAddres from "../InputComponent/ButtonEditAddres";
+import { MonthlyOrder } from "@/pages/type/order";
+import orderDataJson from "../../data/orderData.json";
+import { ImSpoonKnife } from "react-icons/im";
+
 
 interface ProductDetaiPaymentLayoutProps {
   title: string;
@@ -19,22 +20,7 @@ interface ProductDetaiPaymentLayoutProps {
   iconType: 'sun' | 'moon';
 }
 
-interface OrderDetail {
-  date: string;
-  address: string;
-  request: string;
-  day: string;
-}
-
-interface WeeklyOrder {
-  week: string;
-  details: OrderDetail[];
-}
-
-interface MonthlyOrder {
-  month: string;
-  weeks: WeeklyOrder[];
-}
+const orderData: MonthlyOrder = orderDataJson as MonthlyOrder;
 
 const ProductDetaiPaymentLayout: React.FC<ProductDetaiPaymentLayoutProps> = ({
   title,
@@ -91,8 +77,9 @@ const ProductDetaiPaymentLayout: React.FC<ProductDetaiPaymentLayoutProps> = ({
         </div>
       </div>
 
-      {/* <div className="p-3">
-        {orderData.map((monthData, monthIndex) => (
+      {/* Order Details */}
+      <div className="p-3">
+        {[orderData].map((monthData, monthIndex) => (
           <div key={monthIndex}>
             <div
               className="flex justify-between items-center p-4 cursor-pointer bg-[#FFD823] hover:bg-yellow-400 transition-all duration-300 ease-in-out rounded-lg"
@@ -106,42 +93,56 @@ const ProductDetaiPaymentLayout: React.FC<ProductDetaiPaymentLayoutProps> = ({
                 {monthData.weeks.map((weekData, weekIndex) => (
                   <div key={weekIndex}>
                     <div
-                      className="flex justify-between items-center p-3 cursor-pointer border-b"
+                      className="flex justify-between items-center p-3 cursor-pointer border-b border-yellow-800"
                       onClick={() => toggleWeek(weekIndex)}
                     >
                       <span className="font-semibold text-xs">{weekData.week}</span>
                       <span>{openWeekIndex === weekIndex ? <IoIosArrowUp /> : <IoIosArrowDown />}</span>
                     </div>
                     {openWeekIndex === weekIndex && (
-                      <div className="transition-all duration-300 ease-in-out mt-1">
+                      <div className="transition-all duration-300 ease-in-out mt-1 ">
                         {weekData.details.map((detail, detailIndex) => (
-                          <div key={detailIndex} className="w-full text-sm flex items-center mb-3">
+                          <div key={detailIndex} className="w-full text-sm flex flex-col mb-4 ">
+                            <div className="flex items-start gap-4 p-3">
+                              {/* Checkmark Circle on the left */}
+                              <div className="rounded-full p-2 bg-green-900">
+                                {/* <FaCheck className="text-white text-sm" /> */}
+                                <ImSpoonKnife className="text-white text-sm" />
+                              </div>
 
-                            <div className="w-[calc(100%-40px)] flex flex-col justify-center h-full">
-                              <div className="flex flex-col text-left gap-1.5 px-3">
+                              {/* Right side: Date and Meal Info */}
+                              <div className="flex flex-col w-full">
                                 <EditDate
                                   value={selectedDate || detail.date}
                                   onChange={handleDateChange}
                                   disabled={true}
                                 />
-                                <ButtonEditAddres
-                                  selectedLabel={detail.address}
-                                  label={detail.address}
-                                  onClick={() => setIsAddressModalOpen(true)}
-                                  disabled={true}
-                                />
-                                <label className="border-2 border-yellow-800/20 text-[10px] p-1 text-yellow-800 rounded-md bg-yellow-50">
-                                  Tidak ada permintaan Khusus
-                                </label>
-                              </div>
-                            </div>
+                                {/* Meal Details */}
+                                {detail.meals.map((meal, mealIndex) => (
+                                  <div key={mealIndex} className="flex flex-col gap-4 mt-2 border-b p-2 border-yellow-800">
+                                    {/* Meal Time and Request Info */}
+                                    <div className="grid grid-cols-1 gap-2">
+                                      <div className="flex gap-2 h-2">
+                                        <div className={`text-[10px] text-black text-center flex items-center justify-center p-2 rounded-full max-w-max ${meal.time.toLowerCase() === "dinner" ? "bg-purple-500 text-white" : "bg-yellow-200 text-yellow-800"
+                                          }`}>
+                                          {meal.time.toLowerCase() === "lunch" ? "Lunch" :
+                                            meal.time.toLowerCase() === "dinner" ? "Dinner" : "Waktu Makan Tidak Diketahui"}
+                                        </div>
 
-                            <div className="w-1/16 h-full flex items-start justify-end">
-                              {iconType === 'moon' ? (
-                                <FaMoon className="text-blue-400 text-base" />
-                              ) : (
-                                <FaSun className="text-yellow-400 text-base" />
-                              )}
+                                        <div className="text-[10px] text-black rounded-full bg-green-200 max-w-max text-center flex items-center justify-center p-2">
+                                          {meal.request || "Tidak ada permintaan Khusus"}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <ButtonEditAddres
+                                      selectedLabel={meal.address}
+                                      label={meal.address}
+                                      onClick={() => setIsAddressModalOpen(true)}
+                                      disabled={true}
+                                    />
+                                  </div>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         ))}
@@ -153,7 +154,7 @@ const ProductDetaiPaymentLayout: React.FC<ProductDetaiPaymentLayoutProps> = ({
             )}
           </div>
         ))}
-      </div> */}
+      </div>
 
       {isDateModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -169,6 +170,8 @@ const ProductDetaiPaymentLayout: React.FC<ProductDetaiPaymentLayoutProps> = ({
           </div>
         </div>
       )}
+
+
 
       {/* AddressModal */}
       {isAddressModalOpen && (

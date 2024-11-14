@@ -10,6 +10,8 @@ interface AlertProps {
 }
 
 const Alert: React.FC<AlertProps> = ({ message, isVisible, onClose }) => {
+  if (!isVisible) return null;
+
   return (
     isVisible && (
       <motion.div

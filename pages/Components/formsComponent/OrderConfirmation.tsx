@@ -4,8 +4,6 @@ import FormHeader from "../viewComponent/FormHeader";
 import ProductDetaiLayout from "../viewComponent/ProductDetaiLayout";
 
 interface Props {
-  nextStep: () => void;
-  prevStep: () => void;
   orderDetails: {
     name: string;
     email: string;
@@ -19,10 +17,9 @@ interface Props {
   };
 }
 
-const OrderConfirmation: React.FC<Props> = ({ nextStep, prevStep, orderDetails }) => {
+const OrderConfirmation: React.FC<Props> = ({ orderDetails }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    nextStep();
   };
 
   return (

@@ -15,12 +15,10 @@ import SelectDiningEquipment from "../InputComponent/SelectDiningEquipment";
 
 
 interface Props {
-  nextStep: () => void;
-  prevStep: () => void;
   updateFormData: (data: Partial<FormData>) => void;
 }
 
-const PackageForm: React.FC<Props> = ({ nextStep, prevStep, updateFormData }) => {
+const PackageForm: React.FC<Props> = ({ updateFormData }) => {
   const [startDate, setStartDate] = useState("");
   const [request, setRequest] = useState("");
   const [daytimeAddressLunch, setDaytimeAddressLunch] = useState("");
@@ -48,7 +46,6 @@ const PackageForm: React.FC<Props> = ({ nextStep, prevStep, updateFormData }) =>
 
       diningEquipment,
     });
-    nextStep();
   };
 
   return (

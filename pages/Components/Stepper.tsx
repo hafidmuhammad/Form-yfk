@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { FaUser, FaBox, FaCheck, FaCheckSquare, FaCreditCard, FaTrophy, FaCheckCircle } from "react-icons/fa";
+import { useFormContext } from "./FormContext";
 import PersonalInfoForm from "./formsComponent/PersonalInfoForm";
 import PackageForm from "./formsComponent/PackageForm";
 import OrderConfirmation from "./formsComponent/OrderConfirmation";
+import OrderDetail from "./formsComponent/OrderDetails";
 import Payment from "./formsComponent/Payment";
-import PaymentConfirmation from "./formsComponent/PaymentConfirmation";
-import { useFormContext } from "./FormContext";
-import Header from "./Header";
-import OrderDetails from './formsComponent/OrderDetails';
-import Footer from "./Footer";
-import { motion } from "framer-motion";
+import PaymentConfirmationPage from "./formsComponent/PaymentConfirmation";
 import FormButton from "./InputComponent/FormButton";
-import MessageModal from './modalComponent/Modalmessage';
-import Alert from "./viewComponent/alert";
-import SuccessStep from "./formsComponent/ SuccessStep";
+import SuccessStep from "./formsComponent/SuccessStep";
+import Header from "./Header";
+import { motion } from 'framer-motion';
+import MessageModal from "./modalComponent/Modalmessage";
+import Alert from "./viewComponent/Alert";
+import Footer from "./Footer";
+
 
 
 const steps = [
@@ -23,7 +24,7 @@ const steps = [
   { label: "Rincian", icon: <FaCheckSquare /> },
   { label: "Payment", icon: <FaCreditCard /> },
   { label: "Confirmation", icon: <FaTrophy /> },
-  { label: "Sukses", icon: <FaCheckCircle /> } // Langkah Sukses
+  { label: "Sukses", icon: <FaCheckCircle /> }
 ];
 
 const Stepper: React.FC = () => {
@@ -34,10 +35,24 @@ const Stepper: React.FC = () => {
   const [alertVisible, setAlertVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  const [isOrderDetailsChecked, setIsOrderDetailsChecked] = useState(false);
+
+  const updateCheckedStatus = (requestChecked: boolean, orderChecked: boolean) => {
+    setIsOrderDetailsChecked(requestChecked && orderChecked);
+  };
 
   const nextStep = () => {
     if (step < steps.length) {
       const currentStepLabel = steps[step - 1].label;
+
+      // Kondisi khusus untuk langkah "Rincian" (step ke-4)
+      if (currentStepLabel === "Rincian" && !isOrderDetailsChecked) {
+        setModalMessage("Harap ceklis terlebih dahulu untuk melanjutkan.");
+        setIsModalOpen(true);
+        return; // Hentikan fungsi di sini jika checkbox belum dicentang
+      }
+
+      // Menampilkan pesan modal berdasarkan langkah saat ini
       switch (currentStepLabel) {
         case "Data Diri":
           setModalMessage("Harap pastikan data diri Anda sudah benar.");
@@ -65,6 +80,7 @@ const Stepper: React.FC = () => {
     }
   };
 
+
   const prevStep = () => setStep(step - 1);
 
   const handleModalConfirm = () => {
@@ -82,29 +98,32 @@ const Stepper: React.FC = () => {
     setAlertMessage("Pemesanan Berhasil!");
     setAlertVisible(true);
     setTimeout(() => setAlertVisible(false), 3000);
-    setStep(7); // Melanjutkan ke langkah Sukses
+    setStep(7);
   };
 
   const handleConfirmationModalCancel = () => setConfirmationModalOpen(false);
 
-  const handleBackToHome = () => setStep(1);  // Kembali ke Beranda
+  const handleBackToHome = () => setStep(1);
 
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <PersonalInfoForm nextStep={nextStep} updateFormData={updateFormData} />;
+        return <PersonalInfoForm updateFormData={updateFormData} />;
       case 2:
-        return <PackageForm nextStep={nextStep} prevStep={prevStep} updateFormData={updateFormData} />;
+        return <PackageForm updateFormData={updateFormData} />;
       case 3:
-        return <OrderConfirmation nextStep={nextStep} prevStep={prevStep} orderDetails={formData} />;
+        return <OrderConfirmation orderDetails={formData} />;
       case 4:
-        return <OrderDetails nextStep={nextStep} prevStep={prevStep} orderDetails={formData} />;
+        return <OrderDetail
+          orderDetails={formData}
+          updateCheckedStatus={updateCheckedStatus}
+        />
       case 5:
-        return <Payment nextStep={nextStep} prevStep={prevStep} />;
+        return <Payment />;
       case 6:
         return (
           <div>
-            <PaymentConfirmation />
+            <PaymentConfirmationPage />
             <div className="flex justify-end mt-4">
               <FormButton
                 label="Konfirmasi Pemesanan"
@@ -148,7 +167,7 @@ const Stepper: React.FC = () => {
           )}
         </motion.div>
       </div>
-      <Footer className="mt-auto" />
+      <Footer />
       <MessageModal
         isOpen={isModalOpen}
         onClose={handleModalCancel}

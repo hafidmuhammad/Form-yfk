@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormButton from "../InputComponent/FormButton";
 import FormHeader from "../viewComponent/FormHeader";
-import ProductDetaiLayout from "../viewComponent/ProductDetaiLayout";
-import ProductDetaiPaymentLayout from "../viewComponent/ProductDetaiPaymentLayout";
-import MessageModal from "../modalComponent/Modalmessage";
 
+import MessageModal from "../modalComponent/Modalmessage";
+import ProductDetaiPaymentLayout from "../viewComponent/ProductDetaiPaymentLayout";
 
 interface Props {
-  nextStep: () => void;
-  prevStep: () => void;
+  updateCheckedStatus: (requestChecked: boolean, orderChecked: boolean) => void;
   orderDetails: {
     name: string;
     email: string;
@@ -22,22 +20,18 @@ interface Props {
   };
 }
 
-const OrderDetail: React.FC<Props> = ({ nextStep, prevStep }) => {
+const OrderDetail: React.FC<Props> = ({ updateCheckedStatus }) => {
   const [isCheckedRequest, setIsCheckedRequest] = useState(false);
   const [isCheckedOrder, setIsCheckedOrder] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isCheckedRequest && isCheckedOrder) {
-      nextStep();
-    } else {
-      setIsModalOpen(true); // Open modal if conditions are not met
-    }
-  };
+  // Notify the parent component (Stepper) of checkbox status whenever it changes
+  useEffect(() => {
+    updateCheckedStatus(isCheckedRequest, isCheckedOrder);
+  }, [isCheckedRequest, isCheckedOrder, updateCheckedStatus]);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => e.preventDefault()}>
       <div>
         <FormHeader
           title="Konfirmasi Pembayaran"
@@ -62,36 +56,35 @@ const OrderDetail: React.FC<Props> = ({ nextStep, prevStep }) => {
         </div>
 
         {/* Checkbox Section */}
-        <div className="flex flex-col my-2 space-y-1"> {/* Reduced space between checkboxes */}
-          <div className="flex items-center text-xs font-normal  p-2 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-100">
+        <div className="flex flex-col my-2 space-y-1">
+          <div className="flex items-center text-xs font-normal p-2 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-100">
             <input
               type="checkbox"
               checked={isCheckedRequest}
               onChange={() => setIsCheckedRequest(!isCheckedRequest)}
-              className="h-4 w-4 border-gray-400 rounded-full accent-yellow-800  mr-3"
+              className="h-4 w-4 border-gray-400 rounded-full accent-yellow-800 mr-3"
             />
             <span className="text-xs">
               Saya menyatakan bahwa special request, jadwal, dan alamat pengiriman sudah sesuai.
-              <span className="text-red-500">*</span> {/* Red asterisk to indicate required field */}
+              <span className="text-red-500">*</span>
             </span>
           </div>
 
-          <label className="flex items-center text-xs font-normal  p-2 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-100">
+          <label className="flex items-center text-xs font-normal p-2 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-100">
             <input
               type="checkbox"
               checked={isCheckedOrder}
               onChange={() => setIsCheckedOrder(!isCheckedOrder)}
-              className="h-4 w-4 border-gray-400 rounded-full accent-yellow-800  mr-3"
+              className="h-4 w-4 border-gray-400 rounded-full accent-yellow-800 mr-3"
             />
             <span className="text-xs">
               Saya menyatakan bahwa pesanan saya sudah sesuai.
-              <span className="text-red-500">*</span> {/* Red asterisk to indicate required field */}
+              <span className="text-red-500">*</span>
             </span>
           </label>
         </div>
       </div>
 
-      {/* Modal for confirmation */}
       {isModalOpen && (
         <MessageModal
           isOpen={isModalOpen}

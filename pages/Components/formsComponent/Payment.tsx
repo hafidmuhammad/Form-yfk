@@ -5,11 +5,10 @@ import FormButton from "../InputComponent/FormButton";
 
 
 interface Props {
-  nextStep: () => void;
-  prevStep: () => void;
+
 }
 
-const Payment: React.FC<Props> = ({ nextStep, prevStep }) => {
+const Payment: React.FC<Props> = ({ }) => {
   const totalPayment = 1310112;
   const invoiceNumber = "2411001000993";
   const accountNumber = "6840866911";
